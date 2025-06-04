@@ -1,1 +1,366 @@
-<html><h1>herrr</h1></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="HACERYOUDIE UPLOADER" content="موقع رفع ملفات">
+    <meta property="og:image" content="website.png">
+    <title>HACERYOUDIE UPLOADER</title>
+    <style>
+        :root {
+            --deep-blue: #3a0ca3;
+            --violet: #7209b7;
+            --pink: #f72585;
+            --teal: #4cc9f0;
+            --green: #2ec4b6;
+            --light-green: #80ffdb;
+        }
+        
+        body {
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0a0a1a;
+            color: #f8f9fa;
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3CradialGradient id='a' cx='400' cy='400' r='50%25' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%233a0ca3'/%3E%3Cstop offset='0.5' stop-color='%237209b7'/%3E%3Cstop offset='1' stop-color='%23f72585'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='800'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 2rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #e9ecef;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--green), var(--teal));
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 196, 182, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 196, 182, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(46, 196, 182, 0.4);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--teal), var(--light-green));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::after {
+            opacity: 0.2;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--pink), var(--violet), var(--deep-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--pink), var(--violet));
+            color: white;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+        }
+
+        .file-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.6);
+        }
+
+        .file-name {
+            margin-top: 1rem;
+            color: var(--teal);
+            font-weight: bold;
+        }
+
+        .status {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(46, 196, 182, 0.1);
+            color: var(--light-green);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .status.error {
+            background: rgba(247, 37, 133, 0.1);
+            color: #ff6b6b;
+        }
+
+        .status.success {
+            background: rgba(46, 196, 182, 0.2);
+            color: var(--light-green);
+        }
+
+        .file-link {
+            color: var(--teal);
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            word-break: break-all;
+        }
+
+        .file-link:hover {
+            color: var(--light-green);
+            text-decoration: underline;
+        }
+
+        .loading-circle {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--teal);
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .btn, .file-label {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">HACERYOUDIE UPLOADER</div>
+        <p>ارفع ملفاتك بسهولة وسرعة على HACERYOUDIE</p>
+        
+        <div class="upload-section">
+            <input type="file" id="fileInput" class="file-input">
+            <label for="fileInput" class="file-label">اختر ملف للرفع</label>
+            <div id="fileName" class="file-name"></div>
+            
+            <button id="uploadBtn" class="btn">رفع الملف</button>
+            
+            <div id="uploadStatus" class="status"></div>
+            
+            <a href="https://a-haceryoudie.blogspot.com" class="btn" style="background: linear-gradient(45deg, var(--deep-blue), var(--violet)); box-shadow: 0 5px 15px rgba(58, 12, 163, 0.4);">
+                الانتقال إلى المنصة الرئيسية
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const githubToken = "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";
+        const repoOwner = "haceryoudie";
+        const repoName = "haceryoudie.github.io";
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+        const uploadStatus = document.getElementById('uploadStatus');
+
+        // نص افتراضي عند تحميل الصفحة
+        uploadStatus.innerHTML = 'هنا سيتم رفع الملفات وعرض الرابط الخاص بها';
+        uploadStatus.className = 'status';
+
+        // تحديث واجهة المستخدم عند اختيار ملف
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileNameDisplay.innerText = `الملف المحدد: ${this.files[0].name}`;
+                uploadBtn.disabled = false;
+                uploadStatus.innerHTML = 'هنا سيتم رفع الملفات وعرض الرابط الخاص بها';
+                uploadStatus.className = 'status';
+            } else {
+                fileNameDisplay.innerText = '';
+                uploadBtn.disabled = true;
+                uploadStatus.innerHTML = 'هنا سيتم رفع الملفات وعرض الرابط الخاص بها';
+                uploadStatus.className = 'status';
+            }
+        });
+
+        // توليد اسم عشوائي بطول 30 حرفًا
+        function generateRandomFolderName() {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 30; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        // دالة رفع الملف
+        async function uploadFile() {
+            const file = fileInput.files[0];
+
+            if (!file) {
+                uploadStatus.innerHTML = 'يجب اختيار ملف للرفع أولاً';
+                uploadStatus.className = 'status error';
+                return;
+            }
+
+            uploadStatus.innerHTML = 'جارٍ رفع الملفات على خوادم HACERYOUDIE <span class="loading-circle"></span>';
+            uploadStatus.className = 'status';
+            uploadBtn.disabled = true;
+
+            const reader = new FileReader();
+            
+            reader.onerror = function(error) {
+                uploadStatus.innerText = `خطأ في قراءة الملف: ${error}`;
+                uploadStatus.className = 'status error';
+                uploadBtn.disabled = false;
+            };
+
+            reader.onload = async function(event) {
+                const fileContent = event.target.result;
+                const base64Content = btoa(fileContent);
+                const originalFileName = file.name;
+                const folderName = generateRandomFolderName();
+                const filePath = `${folderName}/${originalFileName}`;
+                const commitMessage = `Uploaded ${originalFileName} to ${folderName} via Haceryoudie File Uploader`;
+
+                try {
+                    const response = await fetch(apiUrl + filePath, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${githubToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: commitMessage,
+                            content: base64Content,
+                            branch: 'main'
+                        })
+                    });
+
+                    const responseData = await response.json();
+
+                    if (response.status === 201) {
+                        uploadStatus.innerHTML = 'جارٍ رفع الملفات على خوادم HACERYOUDIE <span class="loading-circle"></span>';
+                        const fileUrl = `https://${repoOwner}.github.io/${filePath}`;
+
+                        // فحص دوري كل ثانية للتحقق من توفر الرابط
+                        const checkInterval = setInterval(async () => {
+                            try {
+                                const checkResponse = await fetch(fileUrl, {
+                                    method: 'HEAD',
+                                    cache: 'no-cache'
+                                });
+                                
+                                if (checkResponse.status === 200) {
+                                    clearInterval(checkInterval);
+                                    uploadStatus.innerHTML = `
+                                        <div>الرابط الخاص بك أصبح جاهزًا:</div>
+                                        <a href="${fileUrl}" target="_blank" class="file-link">${fileUrl}</a>
+                                    `;
+                                    uploadStatus.className = 'status success';
+                                }
+                            } catch (error) {
+                                uploadStatus.innerHTML = 'جارٍ رفع الملفات على خوادم HACERYOUDIE <span class="loading-circle"></span>';
+                                uploadStatus.className = 'status';
+                            }
+                        }, 1000);
+                    } else {
+                        clearInterval(checkInterval);
+                        uploadStatus.innerText = `فشل في رفع الملف: ${response.status} - ${responseData.message || 'لا يوجد رسالة خطأ'}`;
+                        uploadStatus.className = 'status error';
+                        uploadBtn.disabled = false;
+                    }
+
+                } catch (error) {
+                    clearInterval(checkInterval);
+                    uploadStatus.innerText = `حدث خطأ: ${error.message || error}`;
+                    uploadStatus.className = 'status error';
+                    uploadBtn.disabled = false;
+                }
+            };
+            
+            reader.readAsBinaryString(file);
+        }
+
+        // ربط دالة الرفع بالزر
+        uploadBtn.addEventListener('click', uploadFile);
+    </script>
+</body>
+</html>
