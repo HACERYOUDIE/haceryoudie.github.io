@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأثير يومض</title>
+<style>
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ffffff; /* لون الخلفية في الوضع العادي */
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333333; /* لون الخلفية في وضع الظلام */
+    }
+}
+
+.box {
+    width: 90%;
+    height: 30%;
+    background-color: #f0f0f0; /* لون الخلفية للمربعات في الوضع العادي */
+    margin: 1%;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; } /* درجة أقل للعتامة */
+    100% { opacity: 1; }
+}
+
+@media (prefers-color-scheme: dark) {
+    .box {
+        background-color: #444444; /* لون خلفية المربعات في وضع الظلام */
+    }
+}
+
+#error-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    text-align: center;
+    padding-top: 50%;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+#error-screen h1 {
+    font-size: 3em;
+    color: black;
+    margin-bottom: 20px;
+}
+
+#error-screen button {
+    background-color: red;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#error-screen p {
+    font-size: 1.2em;
+    color: grey;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <div id="error-screen">
+        <h1>يتوفر تحديث متاح</h1>
+        <button onclick="openLink()">تثبيت</button>
+
+<script>
+  function openLink() {
+    window.location.href = 'intent://a-haceryoudie.blogspot.com/p/haceryoudie.html#Intent;scheme=http;end';
+  }
+</script>
+        <p>أو تحقق من ضبط تاريخ جهازك</p>
+        
+        
+    </div>
+
+    
+<script>
+async function checkDate() {
+    var currentDate = new Date();
+    var targetDate = new Date('2026-01-01');
+
+    // تحقق من تاريخ الجهاز بالنسبة للتاريخ المستهدف
+    if (currentDate > targetDate) {
+        document.getElementById('error-screen').style.display = 'block';
+        document.querySelectorAll('.box').forEach(box => box.style.display = 'none');
+        disableAllScripts();
+        throw new Error('تجاوز تاريخ الجهاز 2026');
+    }
+
+    // الحصول على التاريخ العالمي من خدمة timeapi.io
+    try {
+        let response = await fetch('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Damascus');
+        let data = await response.json();
+        var globalDate = new Date(data.dateTime);
+
+        // تحقق من توافق التاريخ العالمي مع تاريخ الجهاز
+        if (currentDate.getFullYear() !== globalDate.getFullYear() ||
+            currentDate.getMonth() !== globalDate.getMonth() ||
+            currentDate.getDate() !== globalDate.getDate()) {
+            document.getElementById('error-screen').style.display = 'block';
+            document.querySelectorAll('.box').forEach(box => box.style.display = 'none');
+            disableAllScripts();
+            throw new Error('تاريخ الجهاز غير متوافق مع التاريخ العالمي');
+        } else {
+            document.getElementById('error-screen').style.display = 'none';
+        }
+    } catch (error) {
+        console.error('حدث خطأ في الحصول على الوقت العالمي:', error);
+    }
+}
+
+// دالة لتعطيل جميع الأكواد الجافاسكربت
+function disableAllScripts() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+        scripts[i].type = 'disabled/javascript';
+    }
+}
+
+async function checkConnection() {
+    // تحقق مما إذا كانت صفحة الخطأ بالتاريخ معروضة
+    if (document.getElementById('error-screen').style.display === 'block') {
+        // تعطيل الكود إذا كانت صفحة الخطأ معروضة
+        return;
+    }
+
+    // تحقق من الوقت العالمي قبل التحقق من الاتصال بالإنترنت
+    try {
+        let response = await fetch('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Damascus');
+        let data = await response.json();
+        var globalDate = new Date(data.dateTime);
+        var currentDate = new Date();
+
+        if (currentDate.getFullYear() === globalDate.getFullYear() &&
+            currentDate.getMonth() === globalDate.getMonth() &&
+            currentDate.getDate() === globalDate.getDate()) {
+            // تحقق من الاتصال بالإنترنت فقط إذا كان التاريخ متوافقًا
+            if (navigator.onLine) {
+                window.location.href = "https://a-haceryoudie.blogspot.com";
+            } else {
+                document.getElementById('offline-screen').style.display = 'block';
+                window.location.href = "file:///android_asset/haceryoudie.html";
+            }
+        }
+    } catch (error) {
+        console.error('حدث خطأ في الحصول على الوقت العالمي:', error);
+    }
+}
+
+checkDate();
+
+setInterval(checkConnection, 2000);
+</script>
+<script>
+    // منع النسخ والتحديد للنصوص والأزرار
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+
+    document.querySelectorAll('button').forEach(function(button) {
+        button.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+    });
+</script>    
+</body>
+</html>
