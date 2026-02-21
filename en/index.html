@@ -1,1 +1,9 @@
-<h2>ffff</h2>
+<script>
+  // التحقق مما إذا كان الرابط ينتهي بشرطة مائلة (/)
+  if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {
+      // إزالة الشرطة المائلة من النهاية
+      var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash;
+      // تغيير الرابط في شريط المتصفح بدون عمل Refresh
+      window.history.replaceState(null, document.title, newUrl);
+  }
+</script>
