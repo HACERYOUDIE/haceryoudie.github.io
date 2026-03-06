@@ -3,24 +3,25 @@
 <body>
     <button id="test-btn">إرسال إشعار اختباري</button>
     <script>
-        // تسجيل الـ Service Worker
+        // تسجيل الـ Service Worker من ملفك المرفوع على جيثب
         navigator.serviceWorker.register('./sw.js').then(reg => {
-            console.log('SW registered');
-        });
-
-        document.getElementById('test-btn').onclick = () => {
-            // طلب الإذن إذا لم يكن ممنوحاً
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    navigator.serviceWorker.ready.then(reg => {
+            alert('تم تسجيل الـ Service Worker بنجاح!');
+            document.getElementById('test-btn').onclick = () => {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
                         reg.showNotification('تجربة إشعار', {
-                            body: 'إذا رأيت هذا، فالربط يعمل بنجاح!',
+                            body: 'الربط يعمل بنجاح من جيثب!',
                             icon: ''
                         });
-                    });
-                }
-            });
-        };
+                    } else {
+                        alert('تم رفض إذن الإشعارات');
+                    }
+                });
+            };
+        }).catch(err => {
+            // هنا سيظهر الخطأ كـ alert بدلاً من الكونسول
+            alert('خطأ في تسجيل الخدمة: ' + err.message);
+        });
     </script>
 </body>
 </html>
