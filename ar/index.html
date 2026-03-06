@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+(async function() {
+    let p = window.location.pathname;
+    if (p.endsWith('.html') || p.includes('index')) {
+        try {
+            let r = await fetch('/non-existent-page-' + Math.random());
+            let h = await r.text();
+            document.open();
+            document.write(h);
+            document.close();
+            window.history.replaceState(null, '', p);
+        } catch (e) {
+            window.location.replace('/404');
+        }
+    }
+})();
+</script>
     <title>عن HACERYOUDIE</title>
     <style>
         body {
@@ -81,20 +98,3 @@
     </script>
 </body>
 </html>
-<script>
-(async function() {
-    let p = window.location.pathname;
-    if (p.endsWith('.html') || p.includes('index')) {
-        try {
-            let r = await fetch('/non-existent-page-' + Math.random());
-            let h = await r.text();
-            document.open();
-            document.write(h);
-            document.close();
-            window.history.replaceState(null, '', p);
-        } catch (e) {
-            window.location.replace('/404');
-        }
-    }
-})();
-</script>
