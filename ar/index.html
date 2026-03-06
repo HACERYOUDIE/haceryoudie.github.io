@@ -3,26 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-(async function() {
-    if (window._blocked) return;
-    let p = window.location.pathname.toLowerCase();
-    if (p.endsWith('.html') || p.includes('index')) {
-        window._blocked = true;
-        document.documentElement.style.display = 'none';
-        try {
-            let r = await fetch('/404');
-            if (!r.ok) r = await fetch('/404.html');
-            let h = await r.text();
-            document.open();
-            document.write(h);
-            document.close();
-        } catch (e) {
-            window.location.replace('/404');
-        }
-    }
-})();
-</script>
+
     <title>عن HACERYOUDIE</title>
     <style>
         body {
