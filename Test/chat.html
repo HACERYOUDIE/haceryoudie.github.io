@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>مُشغل الدردشة</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; }
+        textarea { flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 10px; font-family: monospace; }
+        button { padding: 15px; font-size: 16px; background: #0d6efd; color: white; border: none; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h3>ألصق كود الدردشة هنا:</h3>
+    <textarea id="code-input" placeholder="ألصق كود chat.html هنا..."></textarea>
+    <button onclick="injectCode()">تشغيل الدردشة</button>
+
+    <script>
+        function injectCode() {
+            const code = document.getElementById('code-input').value;
+            if (!code) return alert("الرجاء لصق الكود أولاً");
+
+            // مسح الصفحة الحالية بالكامل
+            document.open();
+            document.write(code);
+            document.close();
+        }
+    </script>
+</body>
+</html>
