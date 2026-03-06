@@ -1,24 +1,36 @@
+// داخل ملف sw.js
 self.addEventListener('notificationclick', (event) => {
+    // 1. إغلاق الإشعار فوراً
     event.notification.close();
 
-    // استخراج الرابط من بيانات الإشعار
-    const chatUrl = (event.notification.data && event.notification.data.url) 
-                    ? event.notification.data.url 
-                    : '/';
+    // 2. استخراج البيانات التي تم تمريرها عند إنشاء الإشعار
+    // سنعتمد على أن البيانات موجودة في event.notification.data
+    const data = event.notification.data || {};
+    
+    // بناء الرابط بناءً على chat_id المستخرج من البيانات
+    const chatUrl = data.chat_id ? `/chat?id=${data.chat_id}` : '/';
 
+    // 3. تنفيذ الإجراء
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
-            // 1. محاولة العثور على نافذة مفتوحة لهذا الموقع
+            // محاولة البحث عن نافذة مفتوحة لهذا الموقع
+            let clientToFocus = null;
+
             for (let client of windowClients) {
-                if ('focus' in client) {
-                    // توجيه النافذة الحالية للمحادثة المطلوبة لضمان تحديثها
-                    return client.navigate(chatUrl).then(client => client.focus());
+                // إذا كانت النافذة مفتوحة بالفعل على نفس الرابط، ركز عليها
+                if (client.url.includes(chatUrl)) {
+                    clientToFocus = client;
+                    break;
                 }
             }
-            
-            // 2. إذا لم توجد نافذة مفتوحة، افتح نافذة جديدة
-            return clients.openWindow(chatUrl);
+
+            if (clientToFocus) {
+                // إذا وجدنا النافذة، ركز عليها (لن يغير العد)
+                return clientToFocus.focus();
+            } else {
+                // إذا لم نجدها، افتح نافذة جديدة بالرابط المحدد (سيجبر المتصفح على فتح المحادثة المطلوبة)
+                return clients.openWindow(chatUrl);
+            }
         })
     );
 });
-
