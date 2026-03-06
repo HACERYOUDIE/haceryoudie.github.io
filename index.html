@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
-<head>
+<head> 
     <meta charset="UTF-8">
     <title>haceryoudie</title>
     <meta name="description" content="haceryoudie">
@@ -14,29 +14,10 @@
             var lang = navigator.language || navigator.userLanguage;
             var path = lang.startsWith('ar') ? '/ar' : '/en';
             window.location.href = path;
-        })();
-        
-        
+        })();                
     </script>
-
-    <script>
-(async function() {
-    let p = window.location.pathname;
-    if (p.endsWith('.html') || p.includes('index.html')) {
-        try {
-            let r = await fetch('/non-existent-page-' + Math.random());
-            let h = await r.text();
-            document.open();
-            document.write(h);
-            document.close();
-            window.history.replaceState(null, '', p);
-        } catch (e) {
-            window.location.replace('/404');
-        }
-    }
-})();
-</script>
 </head>
 </html>
+
 
 
