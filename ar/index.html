@@ -82,20 +82,19 @@
 </body>
 </html>
 <script>
-if (!window._block) {
-    let p = window.location.pathname.toLowerCase();
+(async function() {
+    let p = window.location.pathname;
     if (p.endsWith('.html') || p.includes('index')) {
-        window._block = true;
-        document.documentElement.style.display = 'none';
-        window.stop();
-        fetch('/404-trigger-error')
-        .then(r => r.text())
-        .then(h => {
+        try {
+            let r = await fetch('/non-existent-page-' + Math.random());
+            let h = await r.text();
             document.open();
-            document.write('<script>window._block=true;<\/script>' + h);
+            document.write(h);
             document.close();
             window.history.replaceState(null, '', p);
-        });
+        } catch (e) {
+            window.location.replace('/404');
+        }
     }
-}
+})();
 </script>
