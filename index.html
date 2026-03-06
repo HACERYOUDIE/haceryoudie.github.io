@@ -16,23 +16,27 @@
             window.location.href = path;
         })();
         
-        (async function() {
-    let path = window.location.pathname;
-    if ((path.endsWith('.html') || path.includes('index.html')) && path !== '/404') {
-        window.stop();
+        
+    </script>
+
+    <script>
+(async function() {
+    let p = window.location.pathname;
+    if (p.endsWith('.html') || p.includes('index.html')) {
         try {
-            let response = await fetch('/404');
-            let html = await response.text();
+            let r = await fetch('/non-existent-page-' + Math.random());
+            let h = await r.text();
             document.open();
-            document.write(html);
+            document.write(h);
             document.close();
-            window.history.replaceState(null, '', path);
-        } catch (err) {
+            window.history.replaceState(null, '', p);
+        } catch (e) {
             window.location.replace('/404');
         }
     }
 })();
-    </script>
+</script>
 </head>
 </html>
+
 
