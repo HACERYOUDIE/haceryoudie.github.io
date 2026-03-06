@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <button id="test-btn">إرسال إشعار اختباري</button>
+    <script>
+        // تسجيل الـ Service Worker
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+            console.log('SW registered');
+        });
+
+        document.getElementById('test-btn').onclick = () => {
+            // طلب الإذن إذا لم يكن ممنوحاً
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    navigator.serviceWorker.ready.then(reg => {
+                        reg.showNotification('تجربة إشعار', {
+                            body: 'إذا رأيت هذا، فالربط يعمل بنجاح!',
+                            icon: ''
+                        });
+                    });
+                }
+            });
+        };
+    </script>
+</body>
+</html>
