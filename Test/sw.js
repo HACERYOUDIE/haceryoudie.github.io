@@ -1,26 +1,27 @@
 self.addEventListener('notificationclick', (event) => {
-    // 1. إغلاق الإشعار فوراً
+    // 1. إغلاق الإشعار فوراً عند النقر
     event.notification.close();
 
-    // 2. استلام الرابط الجاهز من البيانات
-    // نستخدم الرابط الافتراضي '/' فقط في حال حدوث خطأ غير متوقع
-    const targetUrl = (event.notification.data && event.notification.data.url) 
-                      ? event.notification.data.url 
-                      : '/';
+    // 2. جلب الرابط من البيانات المرفقة
+    // نتأكد من وجود url، وإذا لم يوجد نحاول بنائه من chat_id، وإذا فشل نعود للصفحة الرئيسية
+    const data = event.notification.data || {};
+    const targetUrl = data.url || (data.chat_id ? `/chat?id=${data.chat_id}` : '/');
 
-    // 3. التوجيه (فتح النافذة أو التركيز عليها)
+    // 3. التعامل مع النوافذ
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
-            // البحث عن نافذة مفتوحة لنفس الموقع
+            // البحث عن أي نافذة تابعة لتطبيقنا
             for (let client of windowClients) {
-                // التحقق مما إذا كانت النافذة تابعة لتطبيقنا
-                if (client.url.includes(self.registration.scope)) {
-                    // إجبار النافذة على الذهاب للرابط الجديد + التركيز عليها
+                // التحقق مما إذا كانت النافذة مفتوحة
+                if ('focus' in client) {
+                    // أمر النافذة بالانتقال للرابط المحدد (هذا يحل مشكلة العداد وتحديث المحادثة)
                     return client.navigate(targetUrl).then(c => c.focus());
                 }
             }
-            // إذا لم توجد نافذة، افتح واحدة جديدة بالرابط الصحيح
-            return clients.openWindow(targetUrl);
+            // إذا لم تكن هناك أي نافذة مفتوحة، افتح نافذة جديدة بالرابط المحدد
+            if (clients.openWindow) {
+                return clients.openWindow(targetUrl);
+            }
         })
     );
 });
