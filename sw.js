@@ -9,3 +9,4 @@ self.addEventListener('notificationclick', (event) => {
     );
 
 });
+
