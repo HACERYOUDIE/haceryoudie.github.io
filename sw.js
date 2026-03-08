@@ -5,7 +5,7 @@ self.addEventListener('notificationclick', (event) => {
     // 2. جلب الرابط من البيانات المرفقة
     // نتأكد من وجود url، وإذا لم يوجد نحاول بنائه من chat_id، وإذا فشل نعود للصفحة الرئيسية
     const data = event.notification.data || {};
-    const targetUrl = data.url || (data.chat_id ? `/chat?id=${data.chat_id}` : '/');
+    const targetUrl = data.url || (data.chat_id ? `/chat?id=${data.chat_id}` : '/chat?id=${data.chat_id}');
 
     // 3. التعامل مع النوافذ
     event.waitUntil(
