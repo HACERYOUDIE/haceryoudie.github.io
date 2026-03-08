@@ -2092,7 +2092,7 @@ const NotificationManager = {
     init: async () => {
         if ('serviceWorker' in navigator) {
             try {
-                await navigator.serviceWorker.register('sw.js');
+                await navigator.serviceWorker.register('/sw.js');
                 if ('Notification' in window && Notification.permission === 'default') {
                     await Notification.requestPermission();
                 }
@@ -5608,4 +5608,5 @@ const Search = {
 document.addEventListener('DOMContentLoaded', () => { App.init(); App.setupEventListeners(); App.listenToGlobalFriendshipEvents(); App.startChatListPolling(); Call.init();});
 </script>
 </body>
+
 </html>
