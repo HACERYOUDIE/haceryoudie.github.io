@@ -1,5 +1,7 @@
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
+    var chatUrl = `/chat?id=${event.notification.data.chat_id}`;
+    
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
             for (var i = 0; i < windowClients.length; i++) {
@@ -9,7 +11,7 @@ self.addEventListener('notificationclick', (event) => {
                 }
             }
             if (clients.openWindow) {
-                return clients.openWindow(`/chat?id=${event.notification.data.chat_id}`);
+                return clients.openWindow(chatUrl);
             }
         })
     );
