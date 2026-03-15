@@ -1,19 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>404 - Not Found</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { font-size: 50px; }
-        body { background-color: #f4f4f4; }
-        p { font-size: 20px; }
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #161b22 0%, #0d1117 100%);
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            width: 90%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .error-icon {
+            margin-bottom: 30px;
+        }
+
+        .error-icon svg {
+            width: 80px;
+            height: 80px;
+            stroke: #f85149;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background: #21262d;
+            color: #c9d1d9;
+            padding: 14px 35px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .home-btn:hover {
+            background: #30363d;
+            border-color: #8b949e;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .home-btn:active {
+            transform: translateY(0);
+        }
+
+        .rtl {
+            direction: rtl;
+        }
     </style>
 </head>
 <body>
-    <h1>404 Not Found</h1>
-    <p>Oops! The page you are looking for does not exist.</p>
-    <p>Please check the URL or return to the <a href="/">homepage</a>.</p>
+
+    <div id="bg-canvas"></div>
+
+    <div class="error-container" id="container">
+        <div class="error-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                <polyline points="13 2 13 9 20 9"></polyline>
+                <line x1="9" y1="13" x2="15" y2="13"></line>
+                <line x1="9" y1="17" x2="15" y2="17"></line>
+                <line x1="9" y1="9" x2="10" y2="9"></line>
+            </svg>
+        </div>
+        <h1 id="errorTitle">404</h1>
+        <p class="message" id="errorMessage">File not found. The document you're looking for seems to have moved or doesn't exist.</p>
+        <button class="home-btn" id="homeBtn">Go to Blog</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('container');
+            const message = document.getElementById('errorMessage');
+            const btn = document.getElementById('homeBtn');
+            
+            const userLang = navigator.language || navigator.userLanguage;
+
+            if (userLang.startsWith('ar')) {
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+                container.classList.add('rtl');
+                
+                message.textContent = 'نعتذر، لم يتم العثور على هذا الملف. يبدو أن الرابط الذي تتبعه غير صحيح أو أن الملف قد تمت إزالته من الخادم.';
+                btn.textContent = 'الانتقال للمدونة';
+            }
+
+            btn.addEventListener('click', () => {
+                window.location.href = '/';
+            });
+
+            setTimeout(() => {
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
