@@ -1,84 +1,308 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/ExtensionBlocker.html.js"></script>
-    <title>عن HACERYOUDIE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HACERYOUDIE مدونة عن</title>
     <style>
+        * {
+        	user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            overflow-x: hidden;
             line-height: 1.6;
         }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #161b22 0%, #0d1117 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
         header {
-            background-color: #007acc;
-            color: #fff;
-            padding: 10px 20px;
             text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
         }
-        main {
-            margin: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
         }
-        h1, h2, h3 {
-            color: #007acc;
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8b949e;
         }
-        .contact {
-            background-color: #e2e2e2;
-            padding: 10px;
-            border-radius: 5px;
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
+
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #58a6ff;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: #f0f6fc;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .social-links a {
+            padding: 10px 25px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #30363d;
+            border-color: #8b949e;
+        }
+
+        .like-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .like-link-wrapper {
+            text-decoration: none !important;
+            display: inline-flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+            padding: 20px 50px;
+            border-radius: 60px;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(1.3);
+        }
+
+        .like-link-wrapper:hover {
+            transform: scale(1.35);
+            border-color: #f85149;
+            background: rgba(248, 81, 73, 0.15);
+        }
+
+        .likebtn-wrapper {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            pointer-events: none;
+        }
+
+        .likebtn-wrapper .lb-counter {
+            font-size: 2.5rem !important;
+            color: #f85149 !important;
+            font-weight: 800 !important;
+            margin-right: 15px !important;
+        }
+        
+        .likebtn-wrapper img {
+            width: 32px !important;
+            height: 32px !important;
+        }
+
         footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #666;
+            color: #484f58;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            font-size: 0.85rem;
+            border-top: 1px solid #30363d;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .like-link-wrapper { transform: scale(1.15); }
+            .like-link-wrapper:hover { transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>عن HACERYOUDIE</h1>
-    </header>
-    <main>
-        <h2>التعريف</h2>
-        <p>HACERYOUDIE هو مبرمج ومنتج ومؤثر بارع في مجاله. يتميز بالشغف القوي بتطوير البرمجيات وإنتاج المحتوى الإبداعي.</p>
-        <h2>المهارات</h2>
-        <ul>
-            <li>برمجة تطبيقات الويب</li>
-            <li>تصميم واجهات المستخدم</li>
-            <li>تحليل البيانات</li>
-            <li>تطوير التطبيقات المحمولة</li>
-            <li>إنشاء المحتوى الرقمي</li>
-        </ul>
-        <h2>المشاريع</h2>
-        <p>المشاريع التي عمل عليها HACERYOUDIE تشمل العديد من التطبيقات والمحتويات الرقمية التي لاقت إشادة واسعة من الجمهور.</p>
-        <h2>الإنجازات</h2>
-        <p>لدى HACERYOUDIE العديد من الإنجازات المبهرة في مجالات البرمجة والإنتاج الرقمي، حيث أثرى المجتمع بعدد من المشاريع المميزة التي تساعد المستخدمين بشكل فعّال.</p>
-        <h2>الشغف</h2>
-        <p>يعتبر HACERYOUDIE أن تطوير البرمجيات ليس مجرد وظيفة، بل هو شغف يدفعه لمواصلة التعلم والنمو كل يوم.</p>
-        <h2>تابعوني على</h2>
-        <div class="contact">
-            <p>Instagram: <a href="https://instagram.com/haceryoudie">haceryoudie</a></p>
-            <p>YouTube: <a href="https://youtube.com/@haceryoudie">haceryoudie</a></p>
+
+    <div id="bg-canvas"></div>
+
+    <div class="container">
+        <header class="animate-item">
+            <h1>HACERYOUDIE</h1>
+            <p class="subtitle">تطوير البرمجيات، الأنظمة الذكية، والإنتاج الرقمي</p>
+        </header>
+
+        <div class="grid-layout">
+            <div class="card animate-item">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <h3>الرفع السحابي Uploader</h3>
+                <p>تعمل هذه المدونة كموقع تخزين سحابي مخصص لخدمة <span class="highlight">mestorys uploader</span>، وهي الأداة التقنية المسؤولة عن معالجة ورفع الملفات لضمان وصول سريع وآمن للبيانات.</p>
+            </div>
+
+            <div class="card animate-item">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3>منصة mestorys</h3>
+                <p>مشروع <span class="highlight">mestorys</span> هو منصة تواصل اجتماعي مستقلة تهدف لبناء مجتمع رقمي تفاعلي، وهي منفصلة تماماً في وظيفتها عن أدوات التخزين والرفع.</p>
+            </div>
+
+            <div class="card animate-item">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <h3>البرمجة والذكاء الاصطناعي</h3>
+                <p>مبرمج تطبيقات أندرويد وويب، قمت بتطوير لغة البرمجة <span class="highlight">HAC CODE</span> وتطبيقات ذكاء اصطناعي متنوعة مثل أدوات الدردشة ومحررات الصور الذكية.</p>
+            </div>
+
+            <div class="card animate-item">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.5 1.5"></path><path d="M14 11l5 5"></path></svg>
+                </div>
+                <h3>الإنتاج الإبداعي</h3>
+                <p>ممنتج فيديو، صانع أنميشن وموسيقى باستخدام البرامج التقليدية، بالإضافة إلى تطوير لعبة <span class="highlight">HACERYOUDIE ADVENTURE</span> بنسختيها 2D والعمل الحالي على 3D.</p>
+            </div>
         </div>
-    </main>
-    <footer>
-        <p>&copy; 2026 HACERYOUDIE. جميع الحقوق محفوظة.</p>
-    </footer>
+
+        <div class="social-links animate-item">
+            <a href="https://instagram.com/haceryoudie" target="_blank">Instagram</a>
+            <a href="https://youtube.com/@haceryoudie" target="_blank">YouTube</a>
+        </div>
+
+        <div class="like-section animate-item">
+            <div class="like-link-wrapper" id="mainTrigger">
+                <span class="likebtn-wrapper" 
+                      data-theme="custom" 
+                      data-icon_d_url="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmODUxNDkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ij48L3BhdGg+PC9zdmc+" 
+                      data-icon_d_url_v="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZjg1MTQ5IiBzdHJva2U9IiNmODUxNDkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ij48L3BhdGg+PC9zdmc+" 
+                      data-lang="ar"
+                      data-icon_l_c="transparent" 
+                      data-icon_l_c_v="transparent" 
+                      data-icon_d_c="transparent" 
+                      data-icon_d_c_v="transparent" 
+                      data-label_c="transparent" 
+                      data-label_c_v="transparent" 
+                      data-counter_l_c="transparent" 
+                      data-counter_d_c="#f85149" 
+                      data-bg_c="transparent" 
+                      data-bg_c_v="transparent" 
+                      data-brdr_c="transparent" 
+                      data-white_label="true" 
+                      data-show_like_label="false" 
+                      data-like_enabled="false" 
+                      data-icon_like_show="false" 
+                      data-counter_clickable="true" 
+                      data-counter_zero_show="true" 
+                      data-counter_count="true" 
+                      data-popup_disabled="true" 
+                      data-share_enabled="false" 
+                      data-loader_show="true" 
+                      data-tooltip_enabled="false"></span>
+            </div>
+        </div>
+
+        <footer>
+            <p>جميع الحقوق محفوظة HACERYOUDIE &copy;<span id="year"></span></p>
+        </footer>
+    </div>
+
     <script>
-  // التحقق مما إذا كان الرابط ينتهي بشرطة مائلة (/)
-  if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {
-      // إزالة الشرطة المائلة من النهاية
-      var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash;
-      // تغيير الرابط في شريط المتصفح بدون عمل Refresh
-      window.history.replaceState(null, document.title, newUrl);
-  }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            const items = document.querySelectorAll('.animate-item');
+            items.forEach((el, i) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    el.style.transition = 'all 0.6s ease-out';
+                }, i * 150);
+            });
+
+            const trigger = document.getElementById('mainTrigger');
+            trigger.addEventListener('click', function() {
+                const btn = this.querySelector('.lb-count') || this.querySelector('.likebtn-wrapper');
+                if (btn) btn.click();
+            });
+        });
     </script>
+    <script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
 </body>
 </html>
