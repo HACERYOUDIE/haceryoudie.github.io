@@ -1,149 +1,146 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MESTORYS KERNEL</title>
-    <style>
-        /* الألوان الأساسية للـ DOS المطور (Matrix Green & Deep Black) */
-        :root { --cmd-green: #00ff41; --cmd-bg: #0a0a0a; --cmd-border: #333; }
-        
-        body { 
-            background-color: var(--cmd-bg); 
-            color: var(--cmd-green); 
-            font-family: 'Courier New', Courier, monospace; 
-            margin: 0; padding: 15px; 
-            overflow: hidden; /* توفير موارد الرام بمنع السكرول غير الضروري */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <script>
+    (function(){
+      var k = 'sb-mrynkcevthcixgvmdndi-auth-token';
+      var v = 'user_verified';
+      var tokenData = localStorage.getItem(k);
+      if (tokenData) {
+        if (localStorage.getItem(v) === 'true') {
+          window.location.replace('/');
         }
-
-        .dos-frame {
-            border: 2px solid var(--cmd-border);
-            padding: 10px;
-            max-width: 350px;
-            margin: 20px auto;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
-        }
-
-        .header {
-            background: var(--cmd-green);
-            color: #000;
-            padding: 3px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .input-line { margin-bottom: 15px; }
-        .input-line label { display: block; font-size: 12px; margin-bottom: 5px; }
-
-        input {
-            background: transparent;
-            border: 1px solid var(--cmd-border);
-            color: var(--cmd-green);
-            width: 90%;
-            padding: 8px;
-            font-family: inherit;
-            outline: none;
-            text-align: left; /* البريد والباسوورد يسار دايماً */
-        }
-
-        input:focus { border-color: var(--cmd-green); }
-
-        .btn-exe {
-            background: transparent;
-            border: 1px solid var(--cmd-green);
-            color: var(--cmd-green);
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .btn-exe:active { background: var(--cmd-green); color: #000; }
-
-        /* إشعار تم تسجيل الدخول "دوزي" */
-        #notify {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: #000;
-            border: 2px solid var(--cmd-green);
-            padding: 20px;
-            display: none;
-            z-index: 99;
-            text-align: center;
-            box-shadow: 0 0 50px #000;
-        }
-
-        #console-log { font-size: 10px; color: #666; margin-top: 15px; height: 40px; }
-        .blink { animation: b 1s step-start infinite; }
-        @keyframes b { 50% { opacity: 0; } }
-    </style>
+        var xhr = new XMLHttpRequest();
+        var access_token = JSON.parse(tokenData).access_token;
+        xhr.open('GET', 'https://mrynkcevthcixgvmdndi.supabase.co/rest/v1/profiles?select=id', true);
+        xhr.setRequestHeader('apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var d = JSON.parse(xhr.responseText);
+            if (d && d.length > 0) {
+              localStorage.setItem(v, 'true');
+              if (window.location.pathname !== '/') window.location.replace('/');
+            } else {
+              localStorage.removeItem(k);
+              localStorage.removeItem(v);
+              location.reload();
+            }
+          }
+        };
+        xhr.send();
+      }
+    })();
+  </script>
+  
+  <script> if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash; window.history.replaceState(null, document.title, newUrl); }</script>
+  <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/ExtensionBlocker.html.js"></script>
+  <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbarIconData.js"></script>
+  <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbar.js"></script>
+  <script>document.documentElement.style.overscrollBehaviorY='none';document.body.style.overscrollBehaviorY='none';window.addEventListener('touchmove', function(e){if(window.scrollY===0&&e.touches[0].clientY>(typeof pullStartY!=='undefined'?pullStartY:0))e.preventDefault()},{passive:false});</script>
+  <title>WELCOME TO MESTORYS</title>
+  
+  <style>
+    :root { --primary-color: #0d6efd; --secondary-color: #42b72a; --background-gray: #f0f2f5; --white: #fff; --border-color: #ced4da; }
+    body { font-family: 'Cairo', sans-serif; background: #cfdef3; background: linear-gradient(135deg, #e0eafc, #cfdef3); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; -webkit-user-select: none; user-select: none; text-align: right; }
+    .form-wrapper { width: 100%; max-width: 420px; position: relative; min-height: 620px; padding: 0 1rem; box-sizing: border-box;}
+    .form-container { background-color: #fff; width: 100%; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: absolute; top: 0; left: 0; box-sizing: border-box; transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; transform: translateX(-100%); opacity: 0; pointer-events: none; }
+    .form-container.active { transform: translateX(0); opacity: 1; pointer-events: auto; }
+    .form-container.exit-right { transform: translateX(100%); opacity: 0; }
+    h2 { text-align: center; color: #1c1e21; margin-bottom: 2rem; font-weight: 700; }
+    .input-group { margin-bottom: 1.25rem; position: relative; }
+    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid #ced4da; border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right; }
+    .password-toggle { position: absolute; top: 50%; transform: translateY(-50%); left: 16px; cursor: pointer; color: #6c757d; }
+    .avatar-upload { text-align: center; margin-bottom: 1rem; }
+    .avatar-upload img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #ced4da; cursor: pointer; background-color: #ffffff; }
+    .button-group { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; flex-direction: row-reverse; }
+    button { background-color: #0d6efd; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; }
+    button.secondary { background-color: #e9ecef; color: #495057; }
+    .notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #333; color: white; padding: 15px 25px; border-radius: 8px; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
+    .notification.show { opacity: 1; }
+    .notification.success { background-color: #42b72a; }
+    .notification.error { background-color: #dc3545; }
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-
-<div class="dos-frame">
-    <div class="header">SYSTEM.AUTH_MANAGER v2.1</div>
-    
-    <div class="input-line">
-        <label>C:\USER\EMAIL_ID></label>
-        <input type="text" id="email" spellcheck="false">
+  <div id="notification-area"></div>
+  <div class="form-wrapper">
+    <div id="step-initial" class="form-container active">
+        <h2>MESTORYS مرحباً بك في</h2>
+        <div class="input-group"><input type="email" id="login-email" placeholder="البريد الإلكتروني"></div>
+        <div class="input-group">
+            <input type="password" id="login-password" placeholder="كلمة المرور">
+            <span class="password-toggle" onclick="authFlow.togglePasswordVisibility('login-password', this)">👁</span>
+        </div>
+        <button onclick="auth.login(this)">تسجيل الدخول</button>
+        <div style="text-align:center; margin-top:1.5rem;"><a href="#" onclick="authFlow.showStep('step-register-1'); return false;">ليس لديك حساب؟ إنشاء حساب جديد</a></div>
     </div>
-
-    <div class="input-line">
-        <label>C:\USER\ACCESS_KEY></label>
-        <input type="password" id="pass">
+    <div id="step-register-1" class="form-container">
+        <h2>إنشاء حساب (1/5)</h2>
+        <div class="input-group"><input type="email" id="register-email" placeholder="البريد الإلكتروني"></div>
+        <div class="input-group"><input type="password" id="register-password" placeholder="كلمة المرور"></div>
+        <div class="button-group"><button onclick="authFlow.showStep('step-initial', true)" class="secondary">الخلف</button><button onclick="authFlow.validateStep1()">التالي</button></div>
     </div>
+  </div>
 
-    <button class="btn-exe" onclick="execAuth()">RUN AUTH_EXE</button>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    var SUPABASE_URL = 'https://mrynkcevthcixgvmdndi.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // المفتاح المختصر
+    var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    <div id="console-log">READY...<span class="blink">_</span></div>
-</div>
-
-<div id="notify">
-    <div style="font-size: 20px; margin-bottom: 10px;">SUCCESS!</div>
-    <div id="msg">تم تسجيل الدخول بنجاح</div>
-    <div style="font-size: 10px; margin-top: 10px;">LOADING KERNEL...</div>
-</div>
-
-<script>
-function execAuth() {
-    var e = document.getElementById('email').value;
-    var p = document.getElementById('pass').value;
-    var log = document.getElementById('console-log');
-    var n = document.getElementById('notify');
-    
-    log.innerHTML = "INITIALIZING REQUEST...<br>SENDING PACKETS...";
-
-    var x = new XMLHttpRequest();
-    x.open("POST", "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password", true);
-    x.setRequestHeader("Content-Type", "application/json");
-    x.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
-
-    x.onreadystatechange = function() {
-        if (x.readyState == 4) {
-            if (x.status == 200 || x.status == 201) {
-                // حفظ البيانات يدوياً لسرعة الوصول
-                localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', x.responseText);
-                localStorage.setItem('user_verified', 'true');
-                
-                // إظهار الإشعار الصاروخي
-                n.style.display = 'block';
-                
-                // توجيه فوري بعد 800ms لراحة المعالج
-                setTimeout(function(){ window.location.replace('/'); }, 800);
-            } else {
-                log.innerHTML = "<span style='color:red'>ERROR: ACCESS_DENIED ("+x.status+")</span>";
-            }
-        }
+    var ui = {
+      showNotification: function(m, t) {
+        var c = document.getElementById('notification-area');
+        var n = document.createElement('div');
+        n.className = 'notification ' + (t || 'error');
+        n.innerText = m;
+        c.appendChild(n);
+        setTimeout(function() { n.className += ' show'; }, 10);
+        setTimeout(function() { n.className = n.className.replace(' show', ''); setTimeout(function(){ n.parentNode.removeChild(n); }, 300); }, 4000);
+      }
     };
-    
-    var payload = JSON.stringify({email: e, password: p});
-    x.send(payload);
-}
-</script>
 
+    var authFlow = {
+      currentStepId: 'step-initial',
+      showStep: function(id, back) {
+        var cs = document.getElementById(this.currentStepId);
+        var ns = document.getElementById(id);
+        cs.className = cs.className.replace(' active', '');
+        if (!back) cs.className += ' exit-right';
+        ns.className += ' active';
+        this.currentStepId = id;
+      },
+      togglePasswordVisibility: function(id, el) {
+        var i = document.getElementById(id);
+        i.type = (i.type === 'password' ? 'text' : 'password');
+      },
+      validateStep1: function() {
+        var e = document.getElementById('register-email').value;
+        if (e.indexOf('@gmail.com') === -1) return ui.showNotification('غير مسموح ببريد غير @gmail.com');
+        this.showStep('step-register-2');
+      }
+    };
+
+    var auth = {
+      login: function(btn) {
+        btn.disabled = true;
+        var e = document.getElementById('login-email').value;
+        var p = document.getElementById('login-password').value;
+        client.auth.signInWithPassword({ email: e, password: p }).then(function(res) {
+          if (res.error) {
+            ui.showNotification(res.error.message);
+            btn.disabled = false;
+          } else {
+            ui.showNotification("تم تسجيل الدخول!", "success");
+            setTimeout(function(){ window.location.href = '/'; }, 1500);
+          }
+        });
+      }
+    };
+  </script>
 </body>
 </html>
