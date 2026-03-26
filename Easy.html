@@ -1,110 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>MESTORYS DOS v1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MESTORYS KERNEL</title>
     <style>
+        /* الألوان الأساسية للـ DOS المطور (Matrix Green & Deep Black) */
+        :root { --cmd-green: #00ff41; --cmd-bg: #0a0a0a; --cmd-border: #333; }
+        
         body { 
-            background-color: #000000; 
-            color: #AAAAAA; /* Gray text like DOS */
-            font-family: "Courier New", Courier, monospace; 
-            font-size: 16px; 
-            margin: 0; 
-            padding: 20px;
-            line-height: 1.2;
+            background-color: var(--cmd-bg); 
+            color: var(--cmd-green); 
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0; padding: 15px; 
+            overflow: hidden; /* توفير موارد الرام بمنع السكرول غير الضروري */
         }
-        .container {
-            border: 2px solid #FFFFFF;
+
+        .dos-frame {
+            border: 2px solid var(--cmd-border);
             padding: 10px;
-            width: 400px;
-            margin: 0 auto;
-            position: relative;
+            max-width: 350px;
+            margin: 20px auto;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
         }
+
         .header {
-            background-color: #AAAAAA;
-            color: #000000;
-            padding: 2px 10px;
-            font-weight: bold;
+            background: var(--cmd-green);
+            color: #000;
+            padding: 3px;
             text-align: center;
-            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
+
+        .input-line { margin-bottom: 15px; }
+        .input-line label { display: block; font-size: 12px; margin-bottom: 5px; }
+
         input {
-            background-color: #000000;
-            color: #00FF00; /* Green CRT text */
-            border: 1px solid #AAAAAA;
+            background: transparent;
+            border: 1px solid var(--cmd-border);
+            color: var(--cmd-green);
+            width: 90%;
+            padding: 8px;
             font-family: inherit;
-            width: 100%;
-            margin-bottom: 10px;
             outline: none;
+            text-align: left; /* البريد والباسوورد يسار دايماً */
         }
-        input:focus { border-color: #00FF00; }
-        .btn {
-            background-color: #AAAAAA;
-            color: #000000;
-            border: none;
-            padding: 5px 20px;
+
+        input:focus { border-color: var(--cmd-green); }
+
+        .btn-exe {
+            background: transparent;
+            border: 1px solid var(--cmd-green);
+            color: var(--cmd-green);
+            padding: 10px;
+            width: 100%;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.2s;
         }
-        .btn:hover { background-color: #FFFFFF; }
-        #log {
-            margin-top: 20px;
-            color: #00FF00;
-            font-size: 12px;
-            height: 60px;
-            overflow: hidden;
+
+        .btn-exe:active { background: var(--cmd-green); color: #000; }
+
+        /* إشعار تم تسجيل الدخول "دوزي" */
+        #notify {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            border: 2px solid var(--cmd-green);
+            padding: 20px;
+            display: none;
+            z-index: 99;
+            text-align: center;
+            box-shadow: 0 0 50px #000;
         }
-        .blink { animation: blinker 1s step-start infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+
+        #console-log { font-size: 10px; color: #666; margin-top: 15px; height: 40px; }
+        .blink { animation: b 1s step-start infinite; }
+        @keyframes b { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">MESTORYS LOGIN SYSTEM v1.0</div>
+<div class="dos-frame">
+    <div class="header">SYSTEM.AUTH_MANAGER v2.1</div>
     
-    C:\> ENTER CREDENTIALS...<br><br>
-    
-    EMAIL: <br>
-    <input type="text" id="u" autocomplete="off"><br>
-    
-    PASSWORD: <br>
-    <input type="password" id="p" autocomplete="off"><br>
-    
-    <button class="btn" onclick="run()">[ LOGIN ]</button>
-    
-    <div id="log">
-        READY...<span class="blink">_</span>
+    <div class="input-line">
+        <label>C:\USER\EMAIL_ID></label>
+        <input type="text" id="email" spellcheck="false">
     </div>
+
+    <div class="input-line">
+        <label>C:\USER\ACCESS_KEY></label>
+        <input type="password" id="pass">
+    </div>
+
+    <button class="btn-exe" onclick="execAuth()">RUN AUTH_EXE</button>
+
+    <div id="console-log">READY...<span class="blink">_</span></div>
 </div>
 
-<script type="text/javascript">
-    function run() {
-        var u = document.getElementById('u').value;
-        var p = document.getElementById('p').value;
-        var l = document.getElementById('log');
-        
-        l.innerHTML = "CONNECTING TO KERNEL...<br>EXECUTING AUTH_REQ...";
+<div id="notify">
+    <div style="font-size: 20px; margin-bottom: 10px;">SUCCESS!</div>
+    <div id="msg">تم تسجيل الدخول بنجاح</div>
+    <div style="font-size: 10px; margin-top: 10px;">LOADING KERNEL...</div>
+</div>
 
-        var x = new XMLHttpRequest();
-        x.open("POST", "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password", true);
-        x.setRequestHeader("Content-Type", "application/json");
-        x.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
+<script>
+function execAuth() {
+    var e = document.getElementById('email').value;
+    var p = document.getElementById('pass').value;
+    var log = document.getElementById('console-log');
+    var n = document.getElementById('notify');
+    
+    log.innerHTML = "INITIALIZING REQUEST...<br>SENDING PACKETS...";
 
-        x.onreadystatechange = function() {
-            if (x.readyState == 4) {
-                if (x.status == 200) {
-                    l.innerHTML += "<br>ACCESS GRANTED. REDIRECTING...";
-                    localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', x.responseText);
-                    localStorage.setItem('user_verified', 'true');
-                    setTimeout(function(){ window.location.href = "/"; }, 500);
-                } else {
-                    l.innerHTML = "ERROR: INVALID_INTERRUPT (" + x.status + ")<br>ABORT, RETRY, FAIL?";
-                }
+    var x = new XMLHttpRequest();
+    x.open("POST", "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password", true);
+    x.setRequestHeader("Content-Type", "application/json");
+    x.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
+
+    x.onreadystatechange = function() {
+        if (x.readyState == 4) {
+            if (x.status == 200 || x.status == 201) {
+                // حفظ البيانات يدوياً لسرعة الوصول
+                localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', x.responseText);
+                localStorage.setItem('user_verified', 'true');
+                
+                // إظهار الإشعار الصاروخي
+                n.style.display = 'block';
+                
+                // توجيه فوري بعد 800ms لراحة المعالج
+                setTimeout(function(){ window.location.replace('/'); }, 800);
+            } else {
+                log.innerHTML = "<span style='color:red'>ERROR: ACCESS_DENIED ("+x.status+")</span>";
             }
-        };
-        x.send('{"email":"'+u+'","password":"'+p+'"}');
-    }
+        }
+    };
+    
+    var payload = JSON.stringify({email: e, password: p});
+    x.send(payload);
+}
 </script>
 
 </body>
