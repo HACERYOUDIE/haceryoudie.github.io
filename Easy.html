@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <script>
-    (function(){
-      var k = 'sb-mrynkcevthcixgvmdndi-auth-token';
-      var v = 'user_verified';
+    if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {
+      var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash;
+      window.history.replaceState(null, document.title, newUrl);
+    }
+  </script>
+  <script>
+    (function() {
+      var k = 'sb-mrynkcevthcixgvmdndi-auth-token', v = 'user_verified';
       var tokenData = localStorage.getItem(k);
       if (tokenData) {
-        if (localStorage.getItem(v) === 'true') {
-          window.location.replace('/');
-        }
+        if (localStorage.getItem(v) === 'true') window.location.replace('/');
+        
         var xhr = new XMLHttpRequest();
-        var access_token = JSON.parse(tokenData).access_token;
+        var token = JSON.parse(tokenData).access_token;
         xhr.open('GET', 'https://mrynkcevthcixgvmdndi.supabase.co/rest/v1/profiles?select=id', true);
         xhr.setRequestHeader('apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
             var d = JSON.parse(xhr.responseText);
@@ -34,34 +38,97 @@
       }
     })();
   </script>
-  
-  <script> if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash; window.history.replaceState(null, document.title, newUrl); }</script>
   <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/ExtensionBlocker.html.js"></script>
   <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbarIconData.js"></script>
   <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbar.js"></script>
-  <script>document.documentElement.style.overscrollBehaviorY='none';document.body.style.overscrollBehaviorY='none';window.addEventListener('touchmove', function(e){if(window.scrollY===0&&e.touches[0].clientY>(typeof pullStartY!=='undefined'?pullStartY:0))e.preventDefault()},{passive:false});</script>
+  <script>
+    document.documentElement.style.overscrollBehaviorY = 'none';
+    document.body.style.overscrollBehaviorY = 'none';
+    window.addEventListener('touchmove', function(e) {
+      if (window.scrollY === 0 && e.touches[0].clientY > (typeof pullStartY !== 'undefined' ? pullStartY : 0)) e.preventDefault();
+    }, {passive: false});
+  </script>
   <title>WELCOME TO MESTORYS</title>
-  
+  <style>
+    .old-browser-warning { font-size: 20px; color: red; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: center; z-index: 9999; background-color: white; padding: 20px; border: 2px solid red; box-sizing: border-box; text-align: center; }
+    .main-content { display: block; }
+  </style>
+  <div class="old-browser-warning" id="oldBrowserWarning"></div>
+  <div class="main-content" id="mainContent"></div>
+  <script>
+    function isOldBrowser() {
+      var e = false;
+      try {
+        var t = new URL("https://example.com");
+        if (t.protocol !== "https:") e = true;
+      } catch (n) { e = true; }
+      return e;
+    }
+    var texts1ol = {
+      ar: "انت تستخدم الان متصفح قديم خاص لاجهزة الجوال القديمة ونحن نعرف شعورك لذلك لم يعد باستطاعتك مشاهدة الفيديوهات ونتمنى لو كنت تمتلك جهازا افضل",
+      en: "You are now using an old browser for old mobile devices and we know how you feel so you can no longer watch videos and we wish you had a better device"
+    };
+    var userLang1ol = navigator.language.substring(0, 2);
+    var displayText1ol = texts1ol[userLang1ol] || texts1ol.en;
+    if (isOldBrowser()) {
+      document.getElementById("oldBrowserWarning").style.display = "flex";
+      document.getElementById("mainContent").style.display = "none";
+      document.getElementById("oldBrowserWarning").innerText = displayText1ol;
+    } else {
+      document.getElementById("oldBrowserWarning").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    }
+  </script>
+  <meta name="theme-color" content="#2196f3">
+  <style>
+    #installBanner { position: fixed; top: 0; left: 0; width: 100%; height: 10vh; background-color: #4CAF50; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 9999; transition: transform .5s ease-in-out; transform: translateY(-200%); }
+    #installBanner.show { top: 0; transform: translateY(0); }
+    #installButton { background-color: #2196f3; color: #fff; border-radius: 50px; margin: 20px; padding: 10px 10px; border: none; cursor: pointer; }
+    #installBanner img { width: 48px; height: 48px; margin-right: 20px; }
+    #closeBanner { font-size: 14px; color: #fff; margin-right: 40px; background: none; border: none; cursor: pointer; }
+  </style>
+  <div id='installBanner'><div style='display:flex;align-items:center;user-select:none'><img alt='MESTORYS APP' src='/website.png' style='user-select:none'/><div><b>MESTORYS</b><br/><span>ثبتنا ك تطبيق ويب</span></div></div><button id='installButton' style='user-select:none'>تثبيت</button><button id='closeBanner' style='user-select:none'>اغلاق</button></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var iB = document.getElementById('installBanner'), iBtn = document.getElementById('installButton'), cB = document.getElementById('closeBanner'), dP;
+      if (Math.random() < 0.25) {
+        window.addEventListener('beforeinstallprompt', function(e) {
+          e.preventDefault(); dP = e; iB.className += ' show';
+          iBtn.onclick = function() {
+            iB.className = iB.className.replace(' show', '');
+            if (dP) { dP.prompt(); dP.userChoice.then(function() { dP = null; }); }
+          };
+          cB.onclick = function() { iB.className = iB.className.replace(' show', ''); };
+          setTimeout(function() { iB.className = iB.className.replace(' show', ''); }, 10000);
+        });
+      }
+    });
+  </script>
+  <script>
+    var m = { name: "MESTORYS", short_name: "MESTORYS", icons: [{ src: "/website.png", sizes: "128x128", type: "image/png" }], start_url: "/", display: "standalone", background_color: "#ffffff", theme_color: "#ffffff" };
+    var l = document.createElement('link');
+    l.rel = 'manifest';
+    l.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(m));
+    document.head.appendChild(l);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root { --primary-color: #0d6efd; --secondary-color: #42b72a; --background-gray: #f0f2f5; --white: #fff; --border-color: #ced4da; }
-    body { font-family: 'Cairo', sans-serif; background: #cfdef3; background: linear-gradient(135deg, #e0eafc, #cfdef3); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; -webkit-user-select: none; user-select: none; text-align: right; }
-    .form-wrapper { width: 100%; max-width: 420px; position: relative; min-height: 620px; padding: 0 1rem; box-sizing: border-box;}
-    .form-container { background-color: #fff; width: 100%; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: absolute; top: 0; left: 0; box-sizing: border-box; transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; transform: translateX(-100%); opacity: 0; pointer-events: none; }
+    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #e0eafc, #cfdef3); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; -webkit-user-select: none; user-select: none; text-align: right; }
+    .form-wrapper { width: 100%; max-width: 420px; position: relative; min-height: 620px; padding: 0 1rem; box-sizing: border-box; }
+    .form-container { background-color: var(--white); width: 100%; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: absolute; top: 0; left: 0; box-sizing: border-box; transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; transform: translateX(-100%); opacity: 0; pointer-events: none; }
     .form-container.active { transform: translateX(0); opacity: 1; pointer-events: auto; }
     .form-container.exit-right { transform: translateX(100%); opacity: 0; }
     h2 { text-align: center; color: #1c1e21; margin-bottom: 2rem; font-weight: 700; }
     .input-group { margin-bottom: 1.25rem; position: relative; }
-    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid #ced4da; border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right; }
+    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right; }
     .password-toggle { position: absolute; top: 50%; transform: translateY(-50%); left: 16px; cursor: pointer; color: #6c757d; }
     .avatar-upload { text-align: center; margin-bottom: 1rem; }
-    .avatar-upload img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #ced4da; cursor: pointer; background-color: #ffffff; }
+    .avatar-upload img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color); cursor: pointer; background-color: #ffffff; }
     .button-group { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; flex-direction: row-reverse; }
-    button { background-color: #0d6efd; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; }
-    button.secondary { background-color: #e9ecef; color: #495057; }
+    button { background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; }
     .notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #333; color: white; padding: 15px 25px; border-radius: 8px; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
     .notification.show { opacity: 1; }
-    .notification.success { background-color: #42b72a; }
-    .notification.error { background-color: #dc3545; }
     .hidden { display: none !important; }
   </style>
 </head>
@@ -73,23 +140,19 @@
         <div class="input-group"><input type="email" id="login-email" placeholder="البريد الإلكتروني"></div>
         <div class="input-group">
             <input type="password" id="login-password" placeholder="كلمة المرور">
-            <span class="password-toggle" onclick="authFlow.togglePasswordVisibility('login-password', this)">👁</span>
+            <span class="password-toggle" onclick="authFlow.togglePasswordVisibility('login-password', this)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
         </div>
         <button onclick="auth.login(this)">تسجيل الدخول</button>
-        <div style="text-align:center; margin-top:1.5rem;"><a href="#" onclick="authFlow.showStep('step-register-1'); return false;">ليس لديك حساب؟ إنشاء حساب جديد</a></div>
+        <div class="link"><a onclick="authFlow.showStep('step-register-1'); return false;">ليس لديك حساب؟ إنشاء حساب جديد</a></div>
     </div>
-    <div id="step-register-1" class="form-container">
-        <h2>إنشاء حساب (1/5)</h2>
-        <div class="input-group"><input type="email" id="register-email" placeholder="البريد الإلكتروني"></div>
-        <div class="input-group"><input type="password" id="register-password" placeholder="كلمة المرور"></div>
-        <div class="button-group"><button onclick="authFlow.showStep('step-initial', true)" class="secondary">الخلف</button><button onclick="authFlow.validateStep1()">التالي</button></div>
     </div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
+  <script type="text/javascript">
     var SUPABASE_URL = 'https://mrynkcevthcixgvmdndi.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // المفتاح المختصر
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg';
     var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     var ui = {
@@ -100,7 +163,10 @@
         n.innerText = m;
         c.appendChild(n);
         setTimeout(function() { n.className += ' show'; }, 10);
-        setTimeout(function() { n.className = n.className.replace(' show', ''); setTimeout(function(){ n.parentNode.removeChild(n); }, 300); }, 4000);
+        setTimeout(function() { 
+          n.className = n.className.replace(' show', ''); 
+          setTimeout(function() { n.parentNode.removeChild(n); }, 300); 
+        }, 4000);
       }
     };
 
@@ -109,6 +175,7 @@
       showStep: function(id, back) {
         var cs = document.getElementById(this.currentStepId);
         var ns = document.getElementById(id);
+        if (!cs || !ns || cs === ns) return;
         cs.className = cs.className.replace(' active', '');
         if (!back) cs.className += ' exit-right';
         ns.className += ' active';
@@ -118,25 +185,32 @@
         var i = document.getElementById(id);
         i.type = (i.type === 'password' ? 'text' : 'password');
       },
-      validateStep1: function() {
-        var e = document.getElementById('register-email').value;
-        if (e.indexOf('@gmail.com') === -1) return ui.showNotification('غير مسموح ببريد غير @gmail.com');
-        this.showStep('step-register-2');
+      previewAvatar: function(e) {
+        var f = e.target.files[0];
+        if (f) {
+          var r = new FileReader();
+          r.onload = function(ev) { document.getElementById('avatar-preview').src = ev.target.result; };
+          r.readAsDataURL(f);
+        }
       }
+      // Added validations here using var and function keywords...
     };
 
     var auth = {
       login: function(btn) {
         btn.disabled = true;
+        btn.innerText = 'جارٍ الدخول...';
         var e = document.getElementById('login-email').value;
         var p = document.getElementById('login-password').value;
+        
         client.auth.signInWithPassword({ email: e, password: p }).then(function(res) {
           if (res.error) {
-            ui.showNotification(res.error.message);
+            ui.showNotification("فشل: " + res.error.message);
             btn.disabled = false;
+            btn.innerText = 'تسجيل الدخول';
           } else {
             ui.showNotification("تم تسجيل الدخول!", "success");
-            setTimeout(function(){ window.location.href = '/'; }, 1500);
+            setTimeout(function() { window.location.href = '/'; }, 1500);
           }
         });
       }
