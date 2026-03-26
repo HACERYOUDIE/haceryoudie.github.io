@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <script>
-    if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {
+    if (window.location.pathname.charAt(window.location.pathname.length - 1) === '/' && window.location.pathname !== '/') {
       var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash;
-      window.history.replaceState(null, document.title, newUrl);
+      if(window.history && window.history.replaceState) {
+        window.history.replaceState(null, document.title, newUrl);
+      }
     }
   </script>
   <script>
-    (function() {
-      var k = 'sb-mrynkcevthcixgvmdndi-auth-token', v = 'user_verified';
-      var tokenData = localStorage.getItem(k);
-      if (tokenData) {
-        if (localStorage.getItem(v) === 'true') window.location.replace('/');
-        
+    (function(){
+      var k = 'sb-mrynkcevthcixgvmdndi-auth-token';
+      var v = 'user_verified';
+      if(localStorage.getItem(k)){
+        if(localStorage.getItem(v) === 'true') {
+          window.location.replace('/');
+        }
+        var tokenData = JSON.parse(localStorage.getItem(k));
         var xhr = new XMLHttpRequest();
-        var token = JSON.parse(tokenData).access_token;
         xhr.open('GET', 'https://mrynkcevthcixgvmdndi.supabase.co/rest/v1/profiles?select=id', true);
         xhr.setRequestHeader('apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + tokenData.access_token);
         xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var d = JSON.parse(xhr.responseText);
-            if (d && d.length > 0) {
-              localStorage.setItem(v, 'true');
-              if (window.location.pathname !== '/') window.location.replace('/');
+          if(xhr.readyState === 4) {
+            if(xhr.status === 200) {
+              var d = JSON.parse(xhr.responseText);
+              if(d && d.length > 0){
+                localStorage.setItem(v, 'true');
+                if(window.location.pathname !== '/') window.location.replace('/');
+              } else {
+                localStorage.removeItem(k);
+                localStorage.removeItem(v);
+                location.reload();
+              }
             } else {
               localStorage.removeItem(k);
               localStorage.removeItem(v);
@@ -42,38 +51,41 @@
   <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbarIconData.js"></script>
   <script src="https://nullnoaccno.github.io/MESTORYS_IMAGES/navbar.js"></script>
   <script>
-    document.documentElement.style.overscrollBehaviorY = 'none';
-    document.body.style.overscrollBehaviorY = 'none';
+    try {
+      document.documentElement.style.overscrollBehaviorY = 'none';
+      document.body.style.overscrollBehaviorY = 'none';
+    } catch(e) {}
     window.addEventListener('touchmove', function(e) {
-      if (window.scrollY === 0 && e.touches[0].clientY > (typeof pullStartY !== 'undefined' ? pullStartY : 0)) e.preventDefault();
-    }, {passive: false});
+      if(window.scrollY === 0 && e.touches[0].clientY > (typeof pullStartY !== 'undefined' ? pullStartY : 0)) {
+        e.preventDefault();
+      }
+    }, false);
   </script>
   <title>WELCOME TO MESTORYS</title>
   <style>
-    .old-browser-warning { font-size: 20px; color: red; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: center; z-index: 9999; background-color: white; padding: 20px; border: 2px solid red; box-sizing: border-box; text-align: center; }
+    .old-browser-warning { font-size: 16px; color: red; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; background-color: white; padding: 20px; border: 2px solid red; text-align: center; z-index: 9999; }
     .main-content { display: block; }
   </style>
   <div class="old-browser-warning" id="oldBrowserWarning"></div>
   <div class="main-content" id="mainContent"></div>
   <script>
-    function isOldBrowser() {
+    function isOldBrowser(){
       var e = false;
       try {
-        var t = new URL("https://example.com");
-        if (t.protocol !== "https:") e = true;
-      } catch (n) { e = true; }
+        var p = window.location.protocol;
+      } catch(n) { e = true; }
       return e;
     }
     var texts1ol = {
       ar: "انت تستخدم الان متصفح قديم خاص لاجهزة الجوال القديمة ونحن نعرف شعورك لذلك لم يعد باستطاعتك مشاهدة الفيديوهات ونتمنى لو كنت تمتلك جهازا افضل",
       en: "You are now using an old browser for old mobile devices and we know how you feel so you can no longer watch videos and we wish you had a better device"
     };
-    var userLang1ol = navigator.language.substring(0, 2);
+    var userLang1ol = navigator.language ? navigator.language.substring(0,2) : 'en';
     var displayText1ol = texts1ol[userLang1ol] || texts1ol.en;
-    if (isOldBrowser()) {
-      document.getElementById("oldBrowserWarning").style.display = "flex";
+    if(isOldBrowser()) {
+      document.getElementById("oldBrowserWarning").style.display = "block";
       document.getElementById("mainContent").style.display = "none";
-      document.getElementById("oldBrowserWarning").innerText = displayText1ol;
+      document.getElementById("oldBrowserWarning").innerHTML = displayText1ol;
     } else {
       document.getElementById("oldBrowserWarning").style.display = "none";
       document.getElementById("mainContent").style.display = "block";
@@ -81,55 +93,65 @@
   </script>
   <meta name="theme-color" content="#2196f3">
   <style>
-    #installBanner { position: fixed; top: 0; left: 0; width: 100%; height: 10vh; background-color: #4CAF50; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 9999; transition: transform .5s ease-in-out; transform: translateY(-200%); }
-    #installBanner.show { top: 0; transform: translateY(0); }
-    #installButton { background-color: #2196f3; color: #fff; border-radius: 50px; margin: 20px; padding: 10px 10px; border: none; cursor: pointer; }
-    #installBanner img { width: 48px; height: 48px; margin-right: 20px; }
-    #closeBanner { font-size: 14px; color: #fff; margin-right: 40px; background: none; border: none; cursor: pointer; }
+    #installBanner { position: fixed; top: -100px; left: 0; width: 100%; background-color: #4CAF50; color: #fff; padding: 10px; z-index: 9999; text-align: right; border-bottom: 2px solid #388E3C; }
+    #installBanner.show { top: 0; }
+    #installButton { background-color: #2196f3; color: #fff; padding: 5px 15px; border: none; font-weight: bold; margin-right: 10px; }
+    #closeBanner { background: none; color: #fff; border: none; font-size: 12px; margin-right: 20px; }
   </style>
-  <div id='installBanner'><div style='display:flex;align-items:center;user-select:none'><img alt='MESTORYS APP' src='/website.png' style='user-select:none'/><div><b>MESTORYS</b><br/><span>ثبتنا ك تطبيق ويب</span></div></div><button id='installButton' style='user-select:none'>تثبيت</button><button id='closeBanner' style='user-select:none'>اغلاق</button></div>
+  <div id="installBanner">
+    <div><b>MESTORYS</b> - ثبتنا ك تطبيق ويب</div>
+    <button id="installButton">تثبيت</button>
+    <button id="closeBanner">اغلاق</button>
+  </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function(){
       var iB = document.getElementById('installBanner'), iBtn = document.getElementById('installButton'), cB = document.getElementById('closeBanner'), dP;
-      if (Math.random() < 0.25) {
-        window.addEventListener('beforeinstallprompt', function(e) {
-          e.preventDefault(); dP = e; iB.className += ' show';
+      if(Math.random() < 0.25){
+        window.addEventListener('beforeinstallprompt', function(e){
+          e.preventDefault();
+          dP = e;
+          iB.className = 'show';
           iBtn.onclick = function() {
-            iB.className = iB.className.replace(' show', '');
-            if (dP) { dP.prompt(); dP.userChoice.then(function() { dP = null; }); }
+            iB.className = '';
+            if(dP){
+              dP.prompt();
+              dP.userChoice.then(function(){ dP = null; });
+            }
           };
-          cB.onclick = function() { iB.className = iB.className.replace(' show', ''); };
-          setTimeout(function() { iB.className = iB.className.replace(' show', ''); }, 10000);
+          cB.onclick = function() { iB.className = ''; };
+          setTimeout(function(){ iB.className = ''; }, 10000);
         });
       }
     });
+    window.addEventListener('appinstalled', function() { document.getElementById('installBanner').className = ''; });
   </script>
   <script>
-    var m = { name: "MESTORYS", short_name: "MESTORYS", icons: [{ src: "/website.png", sizes: "128x128", type: "image/png" }], start_url: "/", display: "standalone", background_color: "#ffffff", theme_color: "#ffffff" };
+    var m = {name:"MESTORYS", short_name:"MESTORYS", icons:[{src:"/website.png", sizes:"128x128", type:"image/png"}], start_url:"/", display:"standalone", background_color:"#ffffff", theme_color:"#ffffff"};
     var l = document.createElement('link');
     l.rel = 'manifest';
     l.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(m));
-    document.head.appendChild(l);
+    document.getElementsByTagName('head')[0].appendChild(l);
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    :root { --primary-color: #0d6efd; --secondary-color: #42b72a; --background-gray: #f0f2f5; --white: #fff; --border-color: #ced4da; }
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #e0eafc, #cfdef3); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; -webkit-user-select: none; user-select: none; text-align: right; }
-    .form-wrapper { width: 100%; max-width: 420px; position: relative; min-height: 620px; padding: 0 1rem; box-sizing: border-box; }
-    .form-container { background-color: var(--white); width: 100%; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: absolute; top: 0; left: 0; box-sizing: border-box; transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; transform: translateX(-100%); opacity: 0; pointer-events: none; }
-    .form-container.active { transform: translateX(0); opacity: 1; pointer-events: auto; }
-    .form-container.exit-right { transform: translateX(100%); opacity: 0; }
-    h2 { text-align: center; color: #1c1e21; margin-bottom: 2rem; font-weight: 700; }
-    .input-group { margin-bottom: 1.25rem; position: relative; }
-    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right; }
-    .password-toggle { position: absolute; top: 50%; transform: translateY(-50%); left: 16px; cursor: pointer; color: #6c757d; }
-    .avatar-upload { text-align: center; margin-bottom: 1rem; }
-    .avatar-upload img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color); cursor: pointer; background-color: #ffffff; }
-    .button-group { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; flex-direction: row-reverse; }
-    button { background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; }
-    .notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #333; color: white; padding: 15px 25px; border-radius: 8px; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
-    .notification.show { opacity: 1; }
-    .hidden { display: none !important; }
+    body { font-family: Arial, sans-serif; background-color: #e0eafc; margin: 0; padding: 0; text-align: right; direction: rtl; font-size: 14px; }
+    .form-wrapper { width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; }
+    .form-container { background-color: #ffffff; padding: 15px; border: 1px solid #ced4da; margin-top: 20px; display: none; }
+    .form-container.active { display: block; }
+    h2 { font-size: 18px; color: #1c1e21; text-align: center; margin-bottom: 15px; }
+    .input-group { margin-bottom: 10px; text-align: right; }
+    .input-group input, .input-group select { width: 90%; padding: 8px; border: 1px solid #ced4da; font-size: 14px; direction: rtl; }
+    .button-group { margin-top: 15px; text-align: center; }
+    button { background-color: #0d6efd; color: white; border: none; padding: 10px; font-size: 14px; font-weight: bold; width: 100%; margin-top: 5px; cursor: pointer; }
+    button.secondary { background-color: #e9ecef; color: #495057; }
+    .avatar-upload { text-align: center; margin-bottom: 15px; }
+    .avatar-upload img { width: 90px; height: 90px; border: 2px solid #ced4da; }
+    .link { text-align: center; margin-top: 15px; }
+    .link a { color: #0d6efd; text-decoration: none; font-weight: bold; cursor: pointer; }
+    .hidden { display: none; }
+    .notification { position: fixed; bottom: 10px; left: 10px; right: 10px; padding: 10px; color: white; text-align: center; z-index: 1000; display: none; }
+    .notification.success { background-color: #42b72a; }
+    .notification.error { background-color: #dc3545; }
   </style>
 </head>
 <body>
@@ -140,81 +162,286 @@
         <div class="input-group"><input type="email" id="login-email" placeholder="البريد الإلكتروني"></div>
         <div class="input-group">
             <input type="password" id="login-password" placeholder="كلمة المرور">
-            <span class="password-toggle" onclick="authFlow.togglePasswordVisibility('login-password', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-            </span>
+            <span class="link"><a onclick="authFlow.togglePasswordVisibility('login-password')">إظهار/إخفاء كلمة المرور</a></span>
         </div>
         <button onclick="auth.login(this)">تسجيل الدخول</button>
-        <div class="link"><a onclick="authFlow.showStep('step-register-1'); return false;">ليس لديك حساب؟ إنشاء حساب جديد</a></div>
+        <div class="link">
+            <a onclick="authFlow.showStep('step-register-1'); return false;">ليس لديك حساب؟ إنشاء حساب جديد</a>
+        </div>
     </div>
+    <div id="step-register-1" class="form-container">
+        <h2>إنشاء حساب (1/5)</h2>
+        <div class="input-group"><input type="email" id="register-email" placeholder="البريد الإلكتروني"></div>
+        <div class="input-group">
+            <input type="password" id="register-password" placeholder="كلمة المرور (6 أحرف)">
+            <span class="link"><a onclick="authFlow.togglePasswordVisibility('register-password')">إظهار/إخفاء كلمة المرور</a></span>
+        </div>
+        <div class="button-group">
+            <button onclick="authFlow.validateStep1()">التالي</button>
+            <button onclick="authFlow.showStep('step-initial')" class="secondary">الخلف</button>
+        </div>
     </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <div id="step-register-2" class="form-container">
+        <h2>ما هو اسمك؟ (2/5)</h2>
+        <div class="input-group"><input type="text" id="register-firstname" placeholder="الاسم الأول (مطلوب)"></div>
+        <div class="input-group"><input type="text" id="register-lastname" placeholder="اسم العائلة (اختياري)"></div>
+        <div class="button-group">
+            <button onclick="authFlow.validateStep2()">التالي</button>
+            <button onclick="authFlow.showStep('step-register-1')" class="secondary">الخلف</button>
+        </div>
+    </div>
+    <div id="step-register-3" class="form-container">
+        <h2>ما هو تاريخ ميلادك؟ (3/5)</h2>
+        <div class="input-group"><input type="date" id="register-birthdate"></div>
+        <div class="button-group">
+            <button onclick="authFlow.validateStep3()">التالي</button>
+            <button onclick="authFlow.showStep('step-register-2')" class="secondary">الخلف</button>
+        </div>
+    </div>
+    <div id="step-register-4" class="form-container">
+        <h2>ما هو جنسك؟ (4/5)</h2>
+        <div class="input-group">
+            <select id="register-gender">
+                <option value="" disabled selected>اختر الجنس</option>
+                <option value="male">ذكر</option>
+                <option value="female">أنثى</option>
+                <option value="prefer_not_to_say">أفضل عدم القول</option>
+            </select>
+        </div>
+        <div class="button-group">
+            <button onclick="authFlow.validateStep4()">التالي</button>
+            <button onclick="authFlow.showStep('step-register-3')" class="secondary">الخلف</button>
+        </div>
+    </div>
+    <div id="step-register-5" class="form-container">
+        <h2>اختر صورة ملفك الشخصي (5/5)</h2>
+        <div class="avatar-upload">
+            <img id="avatar-preview" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCIgdmlld0JveD0iMCAwIDM0MCAzNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRTlFOUU5OyIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNEMUQxRDE7IiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxjaXJjbGUgY3g9IjE3MCIgY3k9IjE0NSIgcj0iNzUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PHBhdGggZD0iTSAzNSAzNDAgQyA2MCAyOTAsIDEwMCAyNDAsIDE3MCAyNDAgUyAyODAgMjkwLCAzMDUgMzQwIFoiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+" alt="Avatar" onclick="document.getElementById('register-avatar-input').click();">
+            <input type="file" id="register-avatar-input" class="hidden" accept="image/*" onchange="authFlow.previewAvatar(event)">
+        </div>
+        <div class="button-group">
+            <button onclick="auth.register(this)" style="background-color:#42b72a;">إنهاء</button>
+            <button onclick="authFlow.showStep('step-register-4')" class="secondary">الخلف</button>
+        </div>
+    </div>
+  </div>
+  
   <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: 'en,fr,ar'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+  <script>
     var SUPABASE_URL = 'https://mrynkcevthcixgvmdndi.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg';
     var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    function authGuard() {
+      client.auth.getSession().then(function(res) {
+        if(res.error) throw res.error;
+        if(res.data && res.data.session) {
+          client.from('profiles').select('id').eq('id', res.data.session.user.id).single().then(function(pRes) {
+            if(pRes.error) throw pRes.error;
+            window.location.replace('/');
+          }).catch(function(err) {
+            client.auth.signOut().then(function(){ window.location.reload(); });
+          });
+        }
+      }).catch(function(err) {
+        client.auth.signOut().then(function(){ window.location.reload(); });
+      });
+    }
 
     var ui = {
       showNotification: function(m, t) {
         var c = document.getElementById('notification-area');
         var n = document.createElement('div');
         n.className = 'notification ' + (t || 'error');
-        n.innerText = m;
+        n.innerHTML = m;
         c.appendChild(n);
-        setTimeout(function() { n.className += ' show'; }, 10);
-        setTimeout(function() { 
-          n.className = n.className.replace(' show', ''); 
-          setTimeout(function() { n.parentNode.removeChild(n); }, 300); 
+        n.style.display = 'block';
+        setTimeout(function() {
+          n.style.display = 'none';
+          c.removeChild(n);
         }, 4000);
       }
     };
 
     var authFlow = {
       currentStepId: 'step-initial',
-      showStep: function(id, back) {
-        var cs = document.getElementById(this.currentStepId);
-        var ns = document.getElementById(id);
-        if (!cs || !ns || cs === ns) return;
-        cs.className = cs.className.replace(' active', '');
-        if (!back) cs.className += ' exit-right';
-        ns.className += ' active';
-        this.currentStepId = id;
+      showStep: function(id) {
+        document.getElementById(authFlow.currentStepId).className = 'form-container';
+        document.getElementById(id).className = 'form-container active';
+        authFlow.currentStepId = id;
       },
-      togglePasswordVisibility: function(id, el) {
+      togglePasswordVisibility: function(id) {
         var i = document.getElementById(id);
-        i.type = (i.type === 'password' ? 'text' : 'password');
+        if(i.getAttribute('type') === 'password') {
+          i.setAttribute('type', 'text');
+        } else {
+          i.setAttribute('type', 'password');
+        }
       },
       previewAvatar: function(e) {
         var f = e.target.files[0];
         if (f) {
           var r = new FileReader();
-          r.onload = function(ev) { document.getElementById('avatar-preview').src = ev.target.result; };
+          r.onload = function(ev) {
+            document.getElementById('avatar-preview').src = ev.target.result;
+          };
           r.readAsDataURL(f);
         }
+      },
+      validateStep1: function() {
+        var e = document.getElementById('register-email').value;
+        var p = document.getElementById('register-password').value;
+        if (e.toLowerCase().indexOf('@gmail.com') === -1) return ui.showNotification('غير مسموح ببريد غير @gmail.com');
+        if (p.length < 6) return ui.showNotification('يجب أن تكون كلمة المرور 6 أحرف على الأقل.');
+        authFlow.showStep('step-register-2');
+      },
+      validateStep2: function() {
+        var f = document.getElementById('register-firstname').value;
+        if (!f || f === '') return ui.showNotification('الاسم الأول مطلوب.');
+        authFlow.showStep('step-register-3');
+      },
+      validateStep3: function() {
+        var b = document.getElementById('register-birthdate').value;
+        if (!b || b === '') return ui.showNotification('تاريخ الميلاد مطلوب.');
+        authFlow.showStep('step-register-4');
+      },
+      validateStep4: function() {
+        var g = document.getElementById('register-gender').value;
+        if (!g || g === '') return ui.showNotification('الرجاء اختيار الجنس.');
+        authFlow.showStep('step-register-5');
       }
-      // Added validations here using var and function keywords...
+    };
+
+    var actions = {
+      generateUniqueUsername: function(baseName) {
+        var username = baseName.toLowerCase().replace(/^\s+|\s+$/g, '').replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+        if (!username || username === '') {
+          var rNum = Math.floor(10000000 + Math.random() * 90000000);
+          return Promise.resolve('user-' + rNum);
+        }
+
+        function checkName(finalUsername, attempts) {
+          if (attempts >= 10) {
+            return Promise.resolve('user-' + new Date().getTime());
+          }
+          return client.from('profiles').select('username').eq('username', finalUsername).single()
+            .then(function(res) {
+              if (res.data) {
+                var rnd = Math.floor(10000000 + Math.random() * 90000000);
+                return checkName(username + '-' + rnd, attempts + 1);
+              }
+              return finalUsername;
+            })
+            .catch(function(err) {
+              return finalUsername;
+            });
+        }
+        return checkName(username, 0);
+      }
     };
 
     var auth = {
       login: function(btn) {
         btn.disabled = true;
-        btn.innerText = 'جارٍ الدخول...';
-        var e = document.getElementById('login-email').value;
-        var p = document.getElementById('login-password').value;
+        btn.innerHTML = 'جارٍ الدخول...';
+        var email = document.getElementById('login-email').value;
+        var password = document.getElementById('login-password').value;
         
-        client.auth.signInWithPassword({ email: e, password: p }).then(function(res) {
-          if (res.error) {
-            ui.showNotification("فشل: " + res.error.message);
-            btn.disabled = false;
-            btn.innerText = 'تسجيل الدخول';
-          } else {
-            ui.showNotification("تم تسجيل الدخول!", "success");
+        client.auth.signInWithPassword({ email: email, password: password })
+          .then(function(res) {
+            if (res.error) throw res.error;
+            ui.showNotification("تم تسجيل الدخول بنجاح!", "success");
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://mestorys.netlify.app/appauth/index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            iframe.onload = function() {
+              iframe.contentWindow.postMessage({ action: 'SAVE_SESSION', session: res.data.session }, '*');
+            };
             setTimeout(function() { window.location.href = '/'; }, 1500);
-          }
-        });
+          })
+          .catch(function(error) {
+            ui.showNotification("فشل تسجيل الدخول: " + error.message, "error");
+            btn.disabled = false;
+            btn.innerHTML = 'تسجيل الدخول';
+          });
+      },
+      register: function(btn) {
+        btn.disabled = true;
+        btn.innerHTML = 'جارٍ الإنشاء...';
+        var email = document.getElementById('register-email').value;
+        var password = document.getElementById('register-password').value;
+        var firstName = document.getElementById('register-firstname').value;
+        var lastName = document.getElementById('register-lastname').value;
+        var birthDate = document.getElementById('register-birthdate').value;
+        var gender = document.getElementById('register-gender').value;
+        var avatarFile = document.getElementById('register-avatar-input').files ? document.getElementById('register-avatar-input').files[0] : null;
+        
+        client.auth.signUp({ email: email, password: password })
+          .then(function(res) {
+            if (res.error) throw res.error;
+            var user = res.data.user;
+            var avatarUrl = document.getElementById('avatar-preview').src;
+            var avatarPath = null;
+            
+            function updateProfile(fName, aUrl, aPath) {
+              actions.generateUniqueUsername(fName).then(function(uName) {
+                client.from('profiles').update({
+                  username: uName,
+                  avatar_url: aUrl,
+                  avatar_path: aPath,
+                  first_name: firstName,
+                  last_name: lastName,
+                  birth_date: birthDate,
+                  gender: gender
+                }).eq('id', user.id).then(function(uRes) {
+                  if (uRes.error) throw uRes.error;
+                  ui.showNotification("تم إنشاء الحساب بنجاح!", "success");
+                  client.auth.getSession().then(function(sRes) {
+                    if(sRes.data && sRes.data.session) {
+                      var iframe = document.createElement('iframe');
+                      iframe.src = 'https://mestorys.netlify.app/appauth/index.html';
+                      iframe.style.display = 'none';
+                      document.body.appendChild(iframe);
+                      iframe.onload = function() {
+                        iframe.contentWindow.postMessage({ action: 'SAVE_SESSION', session: sRes.data.session }, '*');
+                      };
+                    }
+                  });
+                  setTimeout(function() { window.location.href = '/'; }, 2000);
+                }).catch(function(err){ throw err; });
+              });
+            }
+
+            if (avatarFile) {
+              var fNameParts = avatarFile.name.split('.');
+              var fileExt = fNameParts[fNameParts.length - 1];
+              var filePath = user.id + '/avatar.' + fileExt;
+              client.storage.from('avatars').upload(filePath, avatarFile, { upsert: true })
+                .then(function(upRes) {
+                  if(upRes.error) throw upRes.error;
+                  var urlData = client.storage.from('avatars').getPublicUrl(filePath);
+                  updateProfile(firstName, urlData.data.publicUrl, filePath);
+                }).catch(function(err){ throw err; });
+            } else {
+              updateProfile(firstName, avatarUrl, avatarPath);
+            }
+          })
+          .catch(function(error) {
+            ui.showNotification(error.message, "error");
+            btn.disabled = false;
+            btn.innerHTML = 'إنهاء';
+          });
       }
     };
+  
+    authGuard();
   </script>
 </body>
 </html>
