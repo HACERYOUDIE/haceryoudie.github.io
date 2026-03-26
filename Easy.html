@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESTORYS LEGACY</title>
+    <style>
+        /* تنسيق بدائي جداً متوافق مع محركات WebKit القديمة */
+        body { background-color: #f0f0f0; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
+        .login-box { border: 1px solid #999; background: #fff; padding: 15px; width: 280px; margin: 0 auto; }
+        input { margin: 5px 0; width: 90%; padding: 5px; border: 1px solid #ccc; }
+        .btn { background: #2196f3; color: #fff; border: 1px solid #0b5ed7; padding: 8px; width: 95%; cursor: pointer; font-weight: bold; }
+        #status { font-size: 12px; color: #666; margin-top: 10px; border-top: 1px dotted #ccc; padding-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <b>تسجيل دخول (نسخة قديمة)</b>
+        <br><br>
+        <form onsubmit="doLogin(); return false;">
+            <input type="text" id="user" placeholder="البريد الإلكتروني">
+            <input type="password" id="pass" placeholder="كلمة المرور">
+            <input type="submit" value="دخول" class="btn">
+        </form>
+        
+        <div id="status">النظام: جاهز...</div>
+    </div>
+
+<script type="text/javascript">
+    // استخدام XMLHttpRequest بدلاً من fetch (منطق أندرويد 2)
+    function doLogin() {
+        var u = document.getElementById('user').value;
+        var p = document.getElementById('pass').value;
+        var st = document.getElementById('status');
+        
+        st.innerHTML = "جاري الاتصال بالقاعدة...";
+
+        var xhr = new XMLHttpRequest();
+        // رابط الـ Edge Function الخاص بـ Supabase للتعامل مع الـ Auth
+        var url = "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password";
+        
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                    var response = eval('(' + xhr.responseText + ')'); // استخدام eval بدل JSON.parse للأجهزة الأثرية
+                    st.innerHTML = "تم التحقق. المזהה: " + response.user.id;
+                    
+                    // تخزين يدوي بدائي
+                    window.localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', xhr.responseText);
+                    
+                    // تحويل صاروخي بدون أي مؤثرات بصيرة
+                    window.location.href = "/";
+                } else {
+                    st.innerHTML = "خطأ: " + xhr.status;
+                }
+            }
+        };
+
+        var data = '{"email":"' + u + '", "password":"' + p + '"}';
+        xhr.send(data);
+    }
+</script>
+
+</body>
+</html>
