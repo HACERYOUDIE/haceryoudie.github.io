@@ -1,68 +1,109 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MESTORYS LEGACY</title>
+    <meta charset="UTF-8">
+    <title>MESTORYS DOS v1.0</title>
     <style>
-        /* تنسيق بدائي جداً متوافق مع محركات WebKit القديمة */
-        body { background-color: #f0f0f0; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
-        .login-box { border: 1px solid #999; background: #fff; padding: 15px; width: 280px; margin: 0 auto; }
-        input { margin: 5px 0; width: 90%; padding: 5px; border: 1px solid #ccc; }
-        .btn { background: #2196f3; color: #fff; border: 1px solid #0b5ed7; padding: 8px; width: 95%; cursor: pointer; font-weight: bold; }
-        #status { font-size: 12px; color: #666; margin-top: 10px; border-top: 1px dotted #ccc; padding-top: 5px; }
+        body { 
+            background-color: #000000; 
+            color: #AAAAAA; /* Gray text like DOS */
+            font-family: "Courier New", Courier, monospace; 
+            font-size: 16px; 
+            margin: 0; 
+            padding: 20px;
+            line-height: 1.2;
+        }
+        .container {
+            border: 2px solid #FFFFFF;
+            padding: 10px;
+            width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .header {
+            background-color: #AAAAAA;
+            color: #000000;
+            padding: 2px 10px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        input {
+            background-color: #000000;
+            color: #00FF00; /* Green CRT text */
+            border: 1px solid #AAAAAA;
+            font-family: inherit;
+            width: 100%;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        input:focus { border-color: #00FF00; }
+        .btn {
+            background-color: #AAAAAA;
+            color: #000000;
+            border: none;
+            padding: 5px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:hover { background-color: #FFFFFF; }
+        #log {
+            margin-top: 20px;
+            color: #00FF00;
+            font-size: 12px;
+            height: 60px;
+            overflow: hidden;
+        }
+        .blink { animation: blinker 1s step-start infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <b>تسجيل دخول (نسخة قديمة)</b>
-        <br><br>
-        <form onsubmit="doLogin(); return false;">
-            <input type="text" id="user" placeholder="البريد الإلكتروني">
-            <input type="password" id="pass" placeholder="كلمة المرور">
-            <input type="submit" value="دخول" class="btn">
-        </form>
-        
-        <div id="status">النظام: جاهز...</div>
+<div class="container">
+    <div class="header">MESTORYS LOGIN SYSTEM v1.0</div>
+    
+    C:\> ENTER CREDENTIALS...<br><br>
+    
+    EMAIL: <br>
+    <input type="text" id="u" autocomplete="off"><br>
+    
+    PASSWORD: <br>
+    <input type="password" id="p" autocomplete="off"><br>
+    
+    <button class="btn" onclick="run()">[ LOGIN ]</button>
+    
+    <div id="log">
+        READY...<span class="blink">_</span>
     </div>
+</div>
 
 <script type="text/javascript">
-    // استخدام XMLHttpRequest بدلاً من fetch (منطق أندرويد 2)
-    function doLogin() {
-        var u = document.getElementById('user').value;
-        var p = document.getElementById('pass').value;
-        var st = document.getElementById('status');
+    function run() {
+        var u = document.getElementById('u').value;
+        var p = document.getElementById('p').value;
+        var l = document.getElementById('log');
         
-        st.innerHTML = "جاري الاتصال بالقاعدة...";
+        l.innerHTML = "CONNECTING TO KERNEL...<br>EXECUTING AUTH_REQ...";
 
-        var xhr = new XMLHttpRequest();
-        // رابط الـ Edge Function الخاص بـ Supabase للتعامل مع الـ Auth
-        var url = "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password";
-        
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
+        var x = new XMLHttpRequest();
+        x.open("POST", "https://mrynkcevthcixgvmdndi.supabase.co/auth/v1/token?grant_type=password", true);
+        x.setRequestHeader("Content-Type", "application/json");
+        x.setRequestHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg");
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200 || xhr.status == 201) {
-                    var response = eval('(' + xhr.responseText + ')'); // استخدام eval بدل JSON.parse للأجهزة الأثرية
-                    st.innerHTML = "تم التحقق. المזהה: " + response.user.id;
-                    
-                    // تخزين يدوي بدائي
-                    window.localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', xhr.responseText);
-                    
-                    // تحويل صاروخي بدون أي مؤثرات بصيرة
-                    window.location.href = "/";
+        x.onreadystatechange = function() {
+            if (x.readyState == 4) {
+                if (x.status == 200) {
+                    l.innerHTML += "<br>ACCESS GRANTED. REDIRECTING...";
+                    localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', x.responseText);
+                    localStorage.setItem('user_verified', 'true');
+                    setTimeout(function(){ window.location.href = "/"; }, 500);
                 } else {
-                    st.innerHTML = "خطأ: " + xhr.status;
+                    l.innerHTML = "ERROR: INVALID_INTERRUPT (" + x.status + ")<br>ABORT, RETRY, FAIL?";
                 }
             }
         };
-
-        var data = '{"email":"' + u + '", "password":"' + p + '"}';
-        xhr.send(data);
+        x.send('{"email":"'+u+'","password":"'+p+'"}');
     }
 </script>
 
