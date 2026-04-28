@@ -5,54 +5,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>WELCOME TO MESTORYS</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #e0eafc; margin: 0; padding: 0; text-align: right; direction: rtl; font-size: 14px; }
-    .form-wrapper { width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; }
-    .form-container { background-color: #ffffff; padding: 15px; border: 1px solid #ced4da; margin-top: 20px; display: none; }
-    h2 { font-size: 18px; color: #1c1e21; text-align: center; margin-bottom: 15px; }
-    .input-group { margin-bottom: 10px; text-align: right; }
-    .input-group input, .input-group select { width: 90%; padding: 8px; border: 1px solid #ced4da; font-size: 14px; direction: rtl; }
-    .button-group { margin-top: 15px; text-align: center; }
-    button { background-color: #0d6efd; color: white; border: none; padding: 10px; font-size: 14px; font-weight: bold; width: 100%; margin-top: 5px; cursor: pointer; }
-    button.secondary { background-color: #e9ecef; color: #495057; }
-    .avatar-upload { text-align: center; margin-bottom: 15px; }
-    .avatar-upload img { width: 90px; height: 90px; border: 2px solid #ced4da; }
-    .link { text-align: center; margin-top: 15px; }
-    .link a { color: #0d6efd; text-decoration: none; font-weight: bold; cursor: pointer; }
-    #notification-area { position: fixed; bottom: 10px; left: 10px; right: 10px; padding: 10px; color: white; text-align: center; z-index: 1000; display: none; }
-    .old-browser-warning { font-size: 16px; color: red; position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; background-color: white; padding: 20px; border: 2px solid red; text-align: center; z-index: 9999; }
-    #installBanner { position: absolute; top: -100px; left: 0; width: 100%; background-color: #4CAF50; color: #fff; padding: 10px; z-index: 9999; text-align: right; border-bottom: 2px solid #388E3C; display: none; }
+    body { 
+      background-color: #f0f7ff;
+      background: -webkit-gradient(linear, left top, right bottom, from(#e0eafc), to(#cfdef3));
+      background: -webkit-linear-gradient(top left, #e0eafc, #cfdef3);
+      background: -moz-linear-gradient(top left, #e0eafc, #cfdef3);
+      background: -o-linear-gradient(top left, #e0eafc, #cfdef3);
+      background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+      font-family: Tahoma, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: block;
+      height: 100%;
+    }
+    .form-wrapper { 
+      width: 90%;
+      max-width: 400px;
+      margin: 50px auto;
+      position: relative;
+    }
+    .form-container { 
+      background-color: #ffffff;
+      padding: 30px;
+      border: 1px solid #e1e8ed;
+      display: none;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      border-radius: 40px;
+      -webkit-box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      -moz-box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    h2 { 
+      font-size: 22px; 
+      color: #1a1a1a; 
+      text-align: center; 
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+    .input-group { 
+      margin-bottom: 15px; 
+      text-align: center;
+    }
+    .input-group input, .input-group select { 
+      width: 85%; 
+      padding: 15px 20px; 
+      border: 2px solid #f0f0f0; 
+      font-size: 16px; 
+      direction: rtl;
+      outline: none;
+      background-color: #f9f9f9;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+    }
+    .input-group input:focus {
+      border-color: #0d6efd;
+      background-color: #ffffff;
+    }
+    .button-group { 
+      margin-top: 25px; 
+      text-align: center; 
+    }
+    button { 
+      background-color: #0d6efd; 
+      color: white; 
+      border: none; 
+      padding: 15px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      width: 95%; 
+      cursor: pointer;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+      -webkit-transform: scale(1.02);
+      transform: scale(1.02);
+    }
+    button.secondary { 
+      background-color: #f1f3f5; 
+      color: #495057; 
+      margin-top: 10px;
+    }
+    .avatar-upload { 
+      text-align: center; 
+      margin-bottom: 20px; 
+    }
+    .avatar-upload img { 
+      width: 120px; 
+      height: 120px; 
+      border: 4px solid #f0f0f0; 
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px;
+    }
+    .link { 
+      text-align: center; 
+      margin-top: 20px; 
+    }
+    .link a { 
+      color: #0d6efd; 
+      text-decoration: none; 
+      font-size: 14px;
+      cursor: pointer; 
+    }
+    #notification-area { 
+      position: fixed; 
+      top: 20px; 
+      left: 20px; 
+      right: 20px; 
+      padding: 15px; 
+      color: white; 
+      text-align: center; 
+      z-index: 10000; 
+      display: none; 
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+    }
   </style>
 </head>
 <body>
-  <div class="old-browser-warning" id="oldBrowserWarning"></div>
-  <div id="installBanner">
-    <div><b>MESTORYS</b> - ثبتنا ك تطبيق ويب</div>
-    <button id="installButton">تثبيت</button>
-    <button id="closeBanner" onclick="document.getElementById('installBanner').style.display='none'">اغلاق</button>
-  </div>
+
   <div id="notification-area"></div>
 
-  <div class="form-wrapper" id="mainContent">
+  <div class="form-wrapper">
     <div id="step-initial" class="form-container" style="display: block;">
-        <h2>MESTORYS مرحباً بك في</h2>
+        <h2>MESTORYS مرحباً بك</h2>
         <div class="input-group"><input type="text" id="login-email" placeholder="البريد الإلكتروني"></div>
-        <div class="input-group">
-            <input type="password" id="login-password" placeholder="كلمة المرور">
-            <span class="link"><a onclick="togglePass('login-password')">إظهار/إخفاء كلمة المرور</a></span>
+        <div class="input-group"><input type="password" id="login-password" placeholder="كلمة المرور"></div>
+        <div class="button-group">
+            <button onclick="loginUser(this)">تسجيل الدخول</button>
         </div>
-        <button onclick="loginUser(this)">تسجيل الدخول</button>
         <div class="link">
-            <a onclick="showStep('step-register-1')">ليس لديك حساب؟ إنشاء حساب جديد</a>
+            <a onclick="showStep('step-register-1')">إنشاء حساب جديد</a>
         </div>
     </div>
 
     <div id="step-register-1" class="form-container">
-        <h2>إنشاء حساب (1/5)</h2>
+        <h2>إنشاء حساب</h2>
         <div class="input-group"><input type="text" id="register-email" placeholder="البريد الإلكتروني"></div>
-        <div class="input-group">
-            <input type="password" id="register-password" placeholder="كلمة المرور (6 أحرف)">
-            <span class="link"><a onclick="togglePass('register-password')">إظهار/إخفاء كلمة المرور</a></span>
-        </div>
+        <div class="input-group"><input type="password" id="register-password" placeholder="كلمة المرور"></div>
         <div class="button-group">
             <button onclick="valStep1()">التالي</button>
             <button onclick="showStep('step-initial')" class="secondary">الخلف</button>
@@ -60,9 +159,9 @@
     </div>
 
     <div id="step-register-2" class="form-container">
-        <h2>ما هو اسمك؟ (2/5)</h2>
-        <div class="input-group"><input type="text" id="register-firstname" placeholder="الاسم الأول (مطلوب)"></div>
-        <div class="input-group"><input type="text" id="register-lastname" placeholder="اسم العائلة (اختياري)"></div>
+        <h2>من أنت؟</h2>
+        <div class="input-group"><input type="text" id="register-firstname" placeholder="الاسم الأول"></div>
+        <div class="input-group"><input type="text" id="register-lastname" placeholder="اسم العائلة"></div>
         <div class="button-group">
             <button onclick="valStep2()">التالي</button>
             <button onclick="showStep('step-register-1')" class="secondary">الخلف</button>
@@ -70,7 +169,7 @@
     </div>
 
     <div id="step-register-3" class="form-container">
-        <h2>ما هو تاريخ ميلادك؟ (3/5)</h2>
+        <h2>تاريخ ميلادك</h2>
         <div class="input-group"><input type="text" id="register-birthdate" placeholder="YYYY-MM-DD"></div>
         <div class="button-group">
             <button onclick="valStep3()">التالي</button>
@@ -79,7 +178,7 @@
     </div>
 
     <div id="step-register-4" class="form-container">
-        <h2>ما هو جنسك؟ (4/5)</h2>
+        <h2>الجنس</h2>
         <div class="input-group">
             <select id="register-gender">
                 <option value="">اختر الجنس</option>
@@ -94,18 +193,18 @@
     </div>
 
     <div id="step-register-5" class="form-container">
-        <h2>الصورة الرمزية (5/5)</h2>
+        <h2>الخطوة الأخيرة</h2>
         <div class="avatar-upload">
-            <img id="avatar-preview" src="" alt="Avatar" style="background-color: #ccc;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjYyI+PHBhdGggZD0iTTEyIDJDMiAyIDIgMTAgMiAxMHM4IDYgMTAgNiAxMC02IDEwLTEwUzIyIDIgMTIgMnoiLz48L3N2Zz4=">
         </div>
         <div class="button-group">
-            <button onclick="registerUser(this)" style="background-color:#42b72a;">إنهاء</button>
+            <button onclick="registerUser(this)" style="background-color:#28a745;">إنشاء الحساب</button>
             <button onclick="showStep('step-register-4')" class="secondary">الخلف</button>
         </div>
     </div>
   </div>
 
-  <script>
+  <script type="text/javascript">
     var sUrl = 'https://mrynkcevthcixgvmdndi.supabase.co';
     var sKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg';
 
@@ -114,99 +213,78 @@
       box.innerHTML = m;
       box.style.backgroundColor = color;
       box.style.display = 'block';
-      setTimeout(function() { box.style.display = 'none'; }, 4000);
+      setTimeout(function() { box.style.display = 'none'; }, 3000);
     }
 
     function showStep(id) {
-      document.getElementById('step-initial').style.display = 'none';
-      document.getElementById('step-register-1').style.display = 'none';
-      document.getElementById('step-register-2').style.display = 'none';
-      document.getElementById('step-register-3').style.display = 'none';
-      document.getElementById('step-register-4').style.display = 'none';
-      document.getElementById('step-register-5').style.display = 'none';
-      document.getElementById(id).style.display = 'block';
-    }
-
-    function togglePass(id) {
-      var el = document.getElementById(id);
-      if(el.type === 'password') {
-        el.type = 'text';
-      } else {
-        el.type = 'password';
+      var steps = ['step-initial', 'step-register-1', 'step-register-2', 'step-register-3', 'step-register-4', 'step-register-5'];
+      for(var i=0; i<steps.length; i++) {
+        document.getElementById(steps[i]).style.display = 'none';
       }
+      document.getElementById(id).style.display = 'block';
     }
 
     function valStep1() {
       var e = document.getElementById('register-email').value;
-      var p = document.getElementById('register-password').value;
-      if(e.indexOf('@gmail.com') === -1) {
-        showMsg('يجب استخدام بريد @gmail.com', '#dc3545');
-        return;
-      }
-      if(p.length < 6) {
-        showMsg('كلمة المرور 6 أحرف على الأقل', '#dc3545');
+      if(e.indexOf('@gmail.com') == -1) {
+        showMsg('يجب استخدام بريد Gmail', '#e74c3c');
         return;
       }
       showStep('step-register-2');
     }
 
     function valStep2() {
-      var f = document.getElementById('register-firstname').value;
-      if(f === '') {
-        showMsg('الاسم الأول مطلوب', '#dc3545');
+      if(document.getElementById('register-firstname').value == '') {
+        showMsg('الاسم مطلوب', '#e74c3c');
         return;
       }
       showStep('step-register-3');
     }
 
     function valStep3() {
-      var b = document.getElementById('register-birthdate').value;
-      if(b === '') {
-        showMsg('تاريخ الميلاد مطلوب', '#dc3545');
+      if(document.getElementById('register-birthdate').value == '') {
+        showMsg('التاريخ مطلوب', '#e74c3c');
         return;
       }
       showStep('step-register-4');
     }
 
     function valStep4() {
-      var g = document.getElementById('register-gender').value;
-      if(g === '') {
-        showMsg('الرجاء اختيار الجنس', '#dc3545');
+      if(document.getElementById('register-gender').value == '') {
+        showMsg('حدد الجنس', '#e74c3c');
         return;
       }
       showStep('step-register-5');
     }
 
-    function makeRequest(method, path, bodyStr, callback) {
+    function apiReq(method, path, body, cb) {
       var xhr = new XMLHttpRequest();
       xhr.open(method, sUrl + path, true);
       xhr.setRequestHeader('apikey', sKey);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onreadystatechange = function() {
-        if(xhr.readyState === 4) {
-          callback(xhr.status, xhr.responseText);
+        if(xhr.readyState == 4) {
+          cb(xhr.status, xhr.responseText);
         }
       };
-      if(bodyStr) {
-        xhr.send(bodyStr);
-      } else {
-        xhr.send();
-      }
+      xhr.send(body);
     }
 
     function loginUser(btn) {
-      btn.innerHTML = 'جارٍ الدخول...';
-      btn.disabled = true;
-      var e = document.getElementById('login-email').value;
-      var p = document.getElementById('login-password').value;
-      var body = '{"email":"' + e + '","password":"' + p + '"}';
+      var email = document.getElementById('login-email').value;
+      var pass = document.getElementById('login-password').value;
+      if(!email || !pass) return showMsg('أدخل البيانات', '#e74c3c');
       
-      makeRequest('POST', '/auth/v1/token?grant_type=password', body, function(status, responseText) {
-        if(status === 200) {
-          showMsg('تم تسجيل الدخول بنجاح', '#42b72a');
-          setTimeout(function(){ window.location.href = '/'; }, 1500);
+      btn.innerHTML = 'انتظر...';
+      btn.disabled = true;
+      
+      var data = JSON.stringify({"email": email, "password": pass});
+      apiReq('POST', '/auth/v1/token?grant_type=password', data, function(s, r) {
+        if(s == 200) {
+          showMsg('تم الدخول', '#2ecc71');
+          setTimeout(function(){ window.location.href = '/'; }, 1000);
         } else {
-          showMsg('خطأ في تسجيل الدخول', '#dc3545');
+          showMsg('خطأ في البيانات', '#e74c3c');
           btn.innerHTML = 'تسجيل الدخول';
           btn.disabled = false;
         }
@@ -214,19 +292,20 @@
     }
 
     function registerUser(btn) {
+      var email = document.getElementById('register-email').value;
+      var pass = document.getElementById('register-password').value;
+      
       btn.innerHTML = 'جارٍ الإنشاء...';
       btn.disabled = true;
-      var e = document.getElementById('register-email').value;
-      var p = document.getElementById('register-password').value;
-      var body = '{"email":"' + e + '","password":"' + p + '"}';
       
-      makeRequest('POST', '/auth/v1/signup', body, function(status, responseText) {
-        if(status === 200 || status === 201) {
-          showMsg('تم إنشاء الحساب بنجاح', '#42b72a');
-          setTimeout(function(){ window.location.href = '/'; }, 2000);
+      var data = JSON.stringify({"email": email, "password": pass});
+      apiReq('POST', '/auth/v1/signup', data, function(s, r) {
+        if(s == 200 || s == 201) {
+          showMsg('تم بنجاح', '#2ecc71');
+          setTimeout(function(){ window.location.href = '/'; }, 1000);
         } else {
-          showMsg('خطأ في التسجيل', '#dc3545');
-          btn.innerHTML = 'إنهاء';
+          showMsg('فشل التسجيل', '#e74c3c');
+          btn.innerHTML = 'إنشاء الحساب';
           btn.disabled = false;
         }
       });
