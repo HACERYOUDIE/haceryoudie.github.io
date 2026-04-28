@@ -2,44 +2,9 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
- <script>
- if (window.location.pathname.length > 1 && window.location.pathname.substr(-1) === '/') {
-    var nU = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash;
-    window.history.replaceState(null, document.title, nU);
- }
- </script>
-<script>
-(function(){
-    var k = 'sb-mrynkcevthcixgvmdndi-auth-token';
-    var v = 'user_verified';
-    var tS = localStorage.getItem(k);
-    if (tS) {
-        if (localStorage.getItem(v) === 'true') {
-            window.location.replace('/');
-        }
-        var tD = JSON.parse(tS);
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://mrynkcevthcixgvmdndi.supabase.co/rest/v1/profiles?select=id', true);
-        xhr.setRequestHeader('apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + tD.access_token);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var d = JSON.parse(xhr.responseText);
-                if (d && d.length > 0) {
-                    localStorage.setItem(v, 'true');
-                    if (window.location.pathname !== '/') window.location.replace('/');
-                } else {
-                    localStorage.removeItem(k);
-                    localStorage.removeItem(v);
-                    location.reload();
-                }
-            }
-        };
-        xhr.send();
-    }
-})();
-</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+ <script> if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {var newUrl = window.location.pathname.slice(0, -1) + window.location.search + window.location.hash; window.history.replaceState(null, document.title, newUrl); }</script>
+<script>(function(){var k='sb-mrynkcevthcixgvmdndi-auth-token',v='user_verified';var tS=localStorage.getItem(k);if(tS){if(localStorage.getItem(v)==='true')window.location.replace('/');var tD=JSON.parse(tS);var xhr=new XMLHttpRequest();xhr.open('GET','https://mrynkcevthcixgvmdndi.supabase.co/rest/v1/profiles?select=id',true);xhr.setRequestHeader('apikey','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg');xhr.setRequestHeader('Authorization','Bearer '+tD.access_token);xhr.onreadystatechange=function(){if(xhr.readyState===4 && xhr.status===200){var d=JSON.parse(xhr.responseText);if(d&&d.length>0){localStorage.setItem(v,'true');if(window.location.pathname!=='/')window.location.replace('/');}else{localStorage.removeItem(k);localStorage.removeItem(v);location.reload();}}};xhr.send();}})();</script>
 <script src="/afqhyq6171yqfyagqg1761oja19qugaq/ExtensionBlocker.html.js"></script>
 <div dir="ltr" id="navbar31" style="visibility:hidden;">  
     <div class="nav-constraint">
@@ -52,46 +17,52 @@
     </div>
 </div>
 <script src="/afqhyq6171yqfyagqg1761oja19qugaq/navbarIconData.js"></script>
-<script src="/afqhyq6171yqfyagqg1761oja19qugaq/navbar.js"></script>
-<title>WELCOME TO MESTORYS</title>
-<meta name="theme-color" content="#2196f3">
-<link rel="icon" type="image/png" href="/icon.png">
-<meta name="description" content="سجل دخولك الآن إلى MESTORYS لتتمتع بكافة الميزات الحصرية. انضم إلى مجتمع haceryoudie الترفيهي.">
-<meta name="robots" content="noindex, follow">
-<style>
+ <script src="/afqhyq6171yqfyagqg1761oja19qugaq/navbar.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){var s='overscrollBehaviorY',d=document.documentElement.style,b=document.body.style;if(s in d)d[s]='none';else if(s in b)b[s]='none';else window.addEventListener('touchmove',function(e){var sY=window.pageYOffset||document.documentElement.scrollTop;if(sY===0&&e.touches[0].clientY>0)e.preventDefault()},false)});</script>
+  <title>WELCOME TO MESTORYS</title>
+      <meta name="theme-color" content="#2196f3">
+    <link rel="icon" type="image/png" href="/icon.png">
+    <meta name="description" content="سجل دخولك الآن إلى MESTORYS لتتمتع بكافة الميزات الحصرية. انضم إلى مجتمع haceryoudie الترفيهي.">
+<meta property="og:title" content="انضم إلى MESTORYS">
+<script>var m={name:"MESTORYS",short_name:"MESTORYS",description:"منصة التواصل الاجتماعي المتكاملة لمشاركة اللحظات، بناء المجتمعات، والتواصل الحر مع العالم في بيئة ذكية وآمنة.",icons:[{src:"/website.png",sizes:"512x512",type:"image/png"}],start_url:"/",display:"standalone",background_color:"#ffffff",theme_color:"#ffffff"},l=document.createElement('link');l.rel='manifest';l.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(m));document.head.appendChild(l);</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  
+  <style>
     :root { --primary-color: #0d6efd; --secondary-color: #42b72a; --background-gray: #f0f2f5; --white: #fff; --border-color: #ced4da; }
     html, body { height: auto; min-height: 100%; margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-    body { font-family: 'Cairo', Arial, sans-serif; background: #e0eafc; background: -webkit-linear-gradient(135deg, #e0eafc, #cfdef3); background: linear-gradient(135deg, #e0eafc, #cfdef3); display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; text-align: right; direction: rtl; }
-    .form-wrapper { width: 100%; max-width: 420px; position: relative; margin: 40px auto; padding: 15px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; overflow: visible; }
-    .form-container { background-color: #fff; width: 100%; padding: 2rem; border-radius: 12px; -webkit-box-shadow: 0 8px 32px rgba(0,0,0,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.1); display: none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; opacity: 0; -webkit-transform: translateX(-20px); transform: translateX(-20px); }
-    .form-container.active { display: block; opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); position: relative; }
-    h2 { text-align: center; color: #1c1e21; margin-bottom: 2rem; font-weight: 700; font-size: 20px; }
-    .input-group { margin-bottom: 1.25rem; position: relative; width: 100%; }
-    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid #ced4da; border-radius: 8px; font-size: 1rem; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; display: block; }
-    .password-toggle { position: absolute; top: 12px; left: 12px; cursor: pointer; color: #6c757d; z-index: 5; font-size: 18px; }
+    body { font-family: 'Cairo', sans-serif; background: #e0eafc; background: -webkit-linear-gradient(135deg, #e0eafc, #cfdef3); background: linear-gradient(135deg, #e0eafc, #cfdef3); display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; text-align: right; direction: rtl; }
+    .form-wrapper { width: 100%; max-width: 420px; position: relative; min-height: 620px; padding: 15px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+    .form-container { background-color: var(--white); width: 100%; padding: 2rem; border-radius: 12px; -webkit-box-shadow: 0 8px 32px rgba(0,0,0,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: relative; display: none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; opacity: 0; -webkit-transform: translateX(-20px); transform: translateX(-20px); }
+    .form-container.active { display: block; opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
+    h2 { text-align: center; color: #1c1e21; margin-bottom: 2rem; font-weight: 700; font-size: 1.5rem; }
+    .input-group { margin-bottom: 1.25rem; position: relative; }
+    .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-transition: all 0.2s; transition: all 0.2s; text-align: right; }
+    .password-toggle { position: absolute; top: 12px; left: 16px; cursor: pointer; color: #6c757d; z-index: 5; }
     .avatar-upload { text-align: center; margin-bottom: 1rem; }
-    .avatar-upload img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ced4da; background-color: #ffffff; object-fit: cover; }
-    .button-group { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: reverse; -webkit-flex-direction: row-reverse; -ms-flex-direction: row-reverse; flex-direction: row-reverse; margin-top: 2rem; }
+    .avatar-upload img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color); cursor: pointer; background-color: #ffffff; }
+    .button-group { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; margin-top: 2rem; -webkit-box-orient: horizontal; -webkit-box-direction: reverse; -webkit-flex-direction: row-reverse; -ms-flex-direction: row-reverse; flex-direction: row-reverse; }
     .button-group button { -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; margin: 0 5px; }
-    button { background-color: #0d6efd; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; -webkit-appearance: none; display: block; }
+    button { background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; -webkit-appearance: none; }
     button:active { background-color: #0b5ed7; -webkit-transform: scale(0.98); transform: scale(0.98); }
     button:disabled { background-color: #6c757d; cursor: not-allowed; }
     button.secondary { background-color: #e9ecef; color: #495057; }
-    .link { text-align: center; margin-top: 1.5rem; font-size: 14px; }
-    .link a { color: #0d6efd; text-decoration: none; font-weight: 600; cursor: pointer; }
+    .link { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; }
+    .link a { color: var(--primary-color); text-decoration: none; font-weight: 600; cursor: pointer; }
     .hidden { display: none !important; }
-    .notification { position: fixed; bottom: 20px; left: 50%; width: 90%; max-width: 380px; -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); transform: translateX(-50%); background-color: #333; color: white; padding: 15px; border-radius: 8px; z-index: 10000; display: none; text-align: center; font-weight: bold; }
-</style>
+    .notification { position: fixed; bottom: 20px; left: 50%; width: 90%; max-width: 400px; -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); transform: translateX(-50%); background-color: #333; color: white; padding: 15px; border-radius: 8px; z-index: 10000; display: none; text-align: center; }
+    @media (max-width: 480px) { .form-container { padding: 1.5rem; } h2 { font-size: 1.3rem; } .avatar-upload img { width: 120px; height: 120px; } }
+  </style>
 </head>
 <body>
-<div id="notification-area" class="notification"></div>
-<div class="form-wrapper">
+  <div id="notification-area" class="notification"></div>
+  <div class="form-wrapper">
     <div id="step-initial" class="form-container active">
         <h2>MESTORYS مرحباً بك في</h2>
         <div class="input-group"><input type="email" id="login-email" placeholder="البريد الإلكتروني"></div>
         <div class="input-group">
             <input type="password" id="login-password" placeholder="كلمة المرور">
-            <span class="password-toggle" onclick="authFlow.togglePass('login-password', this)">👁</span>
+            <span class="password-toggle" onclick="authFlow.togglePass('login-password', this)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
         </div>
         <button onclick="auth.login(this)">تسجيل الدخول</button>
         <div class="link"><a onclick="authFlow.showStep('step-register-1')">ليس لديك حساب؟ إنشاء حساب جديد</a></div>
@@ -101,94 +72,81 @@
         <h2>إنشاء حساب (1/5)</h2>
         <div class="input-group"><input type="email" id="register-email" placeholder="البريد الإلكتروني"></div>
         <div class="input-group">
-            <input type="password" id="register-password" placeholder="كلمة المرور (6 أحرف)">
-            <span class="password-toggle" onclick="authFlow.togglePass('register-password', this)">👁</span>
+            <input type="password" id="register-password" placeholder="كلمة المرور (6 أحرف على الأقل)">
+            <span class="password-toggle" onclick="authFlow.togglePass('register-password', this)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
         </div>
-        <div class="button-group">
-            <button onclick="authFlow.val1()">التالي</button>
-            <button onclick="authFlow.showStep('step-initial')" class="secondary">الخلف</button>
-        </div>
+        <div class="button-group"><button onclick="authFlow.val1()">التالي</button><button onclick="authFlow.showStep('step-initial')" class="secondary">الخلف</button></div>
     </div>
 
     <div id="step-register-2" class="form-container">
         <h2>ما هو اسمك؟ (2/5)</h2>
-        <div class="input-group"><input type="text" id="register-firstname" placeholder="الاسم الأول"></div>
-        <div class="input-group"><input type="text" id="register-lastname" placeholder="اسم العائلة"></div>
-        <div class="button-group">
-            <button onclick="authFlow.val2()">التالي</button>
-            <button onclick="authFlow.showStep('step-register-1')" class="secondary">الخلف</button>
-        </div>
+        <div class="input-group"><input type="text" id="register-firstname" oninput="authFlow.upAv()" placeholder="الاسم الأول (مطلوب)"></div>
+        <div class="input-group"><input type="text" id="register-lastname" oninput="authFlow.upAv()" placeholder="اسم العائلة (اختياري)"></div>
+        <div class="button-group"><button onclick="authFlow.val2()">التالي</button><button onclick="authFlow.showStep('step-register-1')" class="secondary">الخلف</button></div>
     </div>
 
     <div id="step-register-3" class="form-container">
-        <h2>تاريخ ميلادك؟ (3/5)</h2>
+        <h2>ما هو تاريخ ميلادك؟ (3/5)</h2>
         <div class="input-group"><input type="date" id="register-birthdate"></div>
-        <div class="button-group">
-            <button onclick="authFlow.val3()">التالي</button>
-            <button onclick="authFlow.showStep('step-register-2')" class="secondary">الخلف</button>
-        </div>
+        <div class="button-group"><button onclick="authFlow.val3()">التالي</button><button onclick="authFlow.showStep('step-register-2')" class="secondary">الخلف</button></div>
     </div>
 
     <div id="step-register-4" class="form-container">
-        <h2>الجنس (4/5)</h2>
+        <h2>ما هو جنسك؟ (4/5)</h2>
         <div class="input-group">
-            <select id="register-gender">
-                <option value="">اختر الجنس</option>
-                <option value="male">ذكر</option>
-                <option value="female">أنثى</option>
-            </select>
+            <select id="register-gender"><option value="" disabled selected>اختر الجنس</option><option value="male">ذكر</option><option value="female">أنثى</option><option value="prefer_not_to_say">أفضل عدم القول</option></select>
         </div>
-        <div class="button-group">
-            <button onclick="authFlow.val4()">التالي</button>
-            <button onclick="authFlow.showStep('step-register-3')" class="secondary">الخلف</button>
-        </div>
+        <div class="button-group"><button onclick="authFlow.val4()">التالي</button><button onclick="authFlow.showStep('step-register-3')" class="secondary">الخلف</button></div>
     </div>
 
     <div id="step-register-5" class="form-container">
-        <h2>صورة الحساب (5/5)</h2>
+        <h2>اختر صورة ملفك الشخصي (5/5)</h2>
         <div class="avatar-upload">
-            <label for="reg-avatar"><img id="avatar-preview" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCIgdmlld0JveD0iMCAwIDM0MCAzNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTcwIiBjeT0iMTcwIiByPSIxNjAiIGZpbGw9IiNlZWUiLz48L3N2Zz4=" alt="Avatar"></label>
-            <input type="file" id="reg-avatar" class="hidden" accept="image/*" onchange="authFlow.preAv(event)">
+            <label for="reg-avatar-input"><img id="avatar-preview" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCIgdmlld0JveD0iMCAwIDM0MCAzNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRTlFOUU5OyIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNEMUQxRDE7IiAvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0ic2hhZG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iNCIgc3RkRGV2aWF0aW9uPSI1IiBmbG9vZC1jb2xvcj0iIzAwMDAwMCIgZmxvb2Qtb3BhY2l0eT0iMC4xNSIvPjwvZmlsdGVyPjwvZGVmcz48ZyBmaWx0ZXI9InVybCgjc2hhZG93KSI+PGNpcmNsZSBjeD0iMTcwIiBjeT0iMTQ1IiByPSI3NSIgZmlsbD0idXJsKCNncmFkKSIgLz48cGF0aCBkPSJNIDM1IDM0MCBDIDYwIDI5MCwgMTAwIDI0MCwgMTcwIDI0MCBTIDI4MCAyOTAsIDMwNSAzNDAgWiIgZmlsbD0idXJsKCNncmFkKSIgLz48L2c+PC9zdmc+" alt="Avatar"></label>
+            <input type="file" id="reg-avatar-input" class="hidden" accept="image/*" onchange="authFlow.preAv(event)">
         </div>
-        <div class="button-group">
-            <button onclick="auth.reg(this)" style="background-color:#42b72a;">إنهاء</button>
-            <button onclick="authFlow.showStep('step-register-4')" class="secondary">الخلف</button>
-        </div>
+        <div class="button-group"><button onclick="auth.register(this)" style="background-color:var(--secondary-color);">إنهاء</button><button onclick="authFlow.showStep('step-register-4')" class="secondary">الخلف</button></div>
     </div>
-</div>
+  </div>
 
 <script>
     var sU = 'https://mrynkcevthcixgvmdndi.supabase.co';
     var sK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeW5rY2V2dGhjaXhndm1kbmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5Mzk1NzksImV4cCI6MjA3MTUxNTU3OX0.5Fv2mprNFWNfwtqhX9lZuCDZ5weazFK80YLuJiX6Ejg';
+    var client = supabase.createClient(sU, sK);
+    var P_AV = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCIgdmlld0JveD0iMCAwIDM0MCAzNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRTlFOUU5OyIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNEMUQxRDE7IiAvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0ic2hhZG93Ij48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iNCIgc3RkRGV2aWF0aW9uPSI1IiBmbG9vZC1jb2xvcj0iIzAwMDAwMCIgZmxvb2Qtb3BhY2l0eT0iMC4xNSIvPjwvZmlsdGVyPjwvZGVmcz48ZyBmaWx0ZXI9InVybCgjc2hhZG93KSI+PGNpcmNsZSBjeD0iMTcwIiBjeT0iMTQ1IiByPSI3NSIgZmlsbD0idXJsKCNncmFkKSIgLz48cGF0aCBkPSJNIDM1IDM0MCBDIDYwIDI5MCwgMTAwIDI0MCwgMTcwIDI0MCBTIDI4MCAyOTAsIDMwNSAzNDAgWiIgZmlsbD0idXJsKCNncmFkKSIgLz48L2c+PC9zdmc+';
 
     window.ui = {
-        showMsg: function(m, c) {
+        showM: function(m, t) {
             var el = document.getElementById('notification-area');
             el.innerHTML = m;
-            el.style.backgroundColor = c === 'success' ? '#42b72a' : '#dc3545';
+            el.style.backgroundColor = t === 'success' ? '#42b72a' : '#dc3545';
             el.style.display = 'block';
             setTimeout(function() { el.style.display = 'none'; }, 4000);
         }
     };
 
     window.authFlow = {
-        current: 'step-initial',
+        currentId: 'step-initial',
         showStep: function(id) {
             var steps = document.getElementsByClassName('form-container');
-            for (var i = 0; i < steps.length; i++) {
-                steps[i].className = 'form-container';
-                steps[i].style.display = 'none';
-            }
+            for(var i=0; i<steps.length; i++) { steps[i].style.display = 'none'; steps[i].className = 'form-container'; }
             var target = document.getElementById(id);
             target.style.display = 'block';
-            setTimeout(function() { target.className = 'form-container active'; }, 10);
-            window.authFlow.current = id;
+            setTimeout(function(){ target.className = 'form-container active'; }, 10);
+            window.authFlow.currentId = id;
             window.scrollTo(0,0);
         },
         togglePass: function(id, el) {
             var inp = document.getElementById(id);
-            if (inp.type === 'password') { inp.type = 'text'; el.innerHTML = '🔒'; }
-            else { inp.type = 'password'; el.innerHTML = '👁'; }
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                el.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+            } else {
+                inp.type = 'password';
+                el.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            }
         },
         preAv: function(e) {
             var f = e.target.files[0];
@@ -198,34 +156,47 @@
                 r.readAsDataURL(f);
             }
         },
+        upAv: function() {
+            var fN = document.getElementById('register-firstname').value.replace(/^\s+|\s+$/g, '');
+            var lN = document.getElementById('register-lastname').value.replace(/^\s+|\s+$/g, '');
+            if (fN || lN) {
+                var i = (fN ? fN.charAt(0) : '') + (lN ? lN.charAt(0) : '');
+                var c = ["#f44336", "#2196f3", "#4caf50", "#ffc107", "#ff5722"];
+                var cl = c[Math.floor(Math.random() * c.length)];
+                var svg = '<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="100" fill="'+cl+'" /><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="90px" fill="#ffffff">'+i.toUpperCase()+'</text></svg>';
+                document.getElementById('avatar-preview').src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+            } else {
+                document.getElementById('avatar-preview').src = P_AV;
+            }
+        },
         val1: function() {
             var e = document.getElementById('register-email').value;
             var p = document.getElementById('register-password').value;
-            if (e.indexOf('@gmail.com') === -1) { window.ui.showMsg('استخدم @gmail.com فقط'); return; }
-            if (p.length < 6) { window.ui.showMsg('كلمة المرور قصيرة'); return; }
+            if (e.indexOf('@gmail.com') === -1) { window.ui.showM('استخدم @gmail.com فقط'); return; }
+            if (p.length < 6) { window.ui.showM('كلمة المرور قصيرة'); return; }
             window.authFlow.showStep('step-register-2');
         },
         val2: function() {
-            if (!document.getElementById('register-firstname').value) { window.ui.showMsg('الاسم مطلوب'); return; }
+            if (!document.getElementById('register-firstname').value) { window.ui.showM('الاسم مطلوب'); return; }
             window.authFlow.showStep('step-register-3');
         },
         val3: function() {
-            if (!document.getElementById('register-birthdate').value) { window.ui.showMsg('التاريخ مطلوب'); return; }
+            if (!document.getElementById('register-birthdate').value) { window.ui.showM('التاريخ مطلوب'); return; }
             window.authFlow.showStep('step-register-4');
         },
         val4: function() {
-            if (!document.getElementById('register-gender').value) { window.ui.showMsg('اختر الجنس'); return; }
+            if (!document.getElementById('register-gender').value) { window.ui.showM('اختر الجنس'); return; }
             window.authFlow.showStep('step-register-5');
         }
     };
 
-    function ajax(m, p, b, cb) {
+    function callSupa(method, path, body, cb) {
         var xhr = new XMLHttpRequest();
-        xhr.open(m, sU + p, true);
+        xhr.open(method, sU + path, true);
         xhr.setRequestHeader('apikey', sK);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function() { if (xhr.readyState === 4) cb(xhr.status, xhr.responseText); };
-        xhr.send(b);
+        xhr.send(JSON.stringify(body));
     }
 
     window.auth = {
@@ -234,21 +205,25 @@
             btn.innerHTML = 'جارٍ الدخول...';
             var e = document.getElementById('login-email').value;
             var p = document.getElementById('login-password').value;
-            var body = JSON.stringify({email: e, password: p});
-            ajax('POST', '/auth/v1/token?grant_type=password', body, function(s, r) {
+            callSupa('POST', '/auth/v1/token?grant_type=password', {email: e, password: p}, function(s, r) {
                 if (s === 200) {
                     var data = JSON.parse(r);
                     localStorage.setItem('sb-mrynkcevthcixgvmdndi-auth-token', JSON.stringify(data));
-                    window.ui.showMsg('تم الدخول بنجاح', 'success');
-                    setTimeout(function() { window.location.href = '/'; }, 1000);
+                    window.ui.showM('تم الدخول بنجاح', 'success');
+                    var ifr = document.createElement('iframe');
+                    ifr.src = 'https://mestorys.netlify.app/appauth/index.html';
+                    ifr.style.display = 'none';
+                    document.body.appendChild(ifr);
+                    ifr.onload = function() { ifr.contentWindow.postMessage({ action: 'SAVE_SESSION', session: data }, '*'); };
+                    setTimeout(function() { window.location.href = '/'; }, 1500);
                 } else {
-                    window.ui.showMsg('خطأ في البيانات');
+                    window.ui.showM('خطأ في البريد أو كلمة المرور');
                     btn.disabled = false;
                     btn.innerHTML = 'تسجيل الدخول';
                 }
             });
         },
-        reg: function(btn) {
+        register: function(btn) {
             btn.disabled = true;
             btn.innerHTML = 'جارٍ الإنشاء...';
             var e = document.getElementById('register-email').value;
@@ -258,24 +233,34 @@
             var d = document.getElementById('register-birthdate').value;
             var g = document.getElementById('register-gender').value;
             var av = document.getElementById('avatar-preview').src;
-            var body = JSON.stringify({email: e, password: p});
-            ajax('POST', '/auth/v1/signup', body, function(s, r) {
+            callSupa('POST', '/auth/v1/signup', {email: e, password: p}, function(s, r) {
                 if (s === 200 || s === 201) {
-                    var userData = JSON.parse(r);
-                    var uid = userData.id || userData.user.id;
-                    var prof = JSON.stringify({username: f.toLowerCase() + Math.floor(Math.random()*9999), first_name: f, last_name: l, birth_date: d, gender: g, avatar_url: av});
-                    ajax('PATCH', '/rest/v1/profiles?id=eq.' + uid, prof, function() {
-                        window.ui.showMsg('تم الإنشاء بنجاح', 'success');
-                        setTimeout(function() { window.location.href = '/'; }, 1500);
+                    var uData = JSON.parse(r);
+                    var uid = uData.id || uData.user.id;
+                    var uname = f.toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random()*9999);
+                    var profile = { username: uname, first_name: f, last_name: l, birth_date: d, gender: g, avatar_url: av };
+                    callSupa('PATCH', '/rest/v1/profiles?id=eq.' + uid, profile, function() {
+                        window.ui.showM('تم إنشاء الحساب بنجاح', 'success');
+                        setTimeout(function() { window.location.href = '/'; }, 2000);
                     });
                 } else {
-                    window.ui.showMsg('خطأ في التسجيل');
+                    window.ui.showM('حدث خطأ أثناء التسجيل');
                     btn.disabled = false;
                     btn.innerHTML = 'إنهاء';
                 }
             });
         }
     };
+
+    (function guard() {
+        client.auth.getSession().then(function(res) {
+            if (res.data.session) {
+                client.from('profiles').select('id').eq('id', res.data.session.user.id).single().then(function(p) {
+                    if (!p.error) window.location.replace('/');
+                });
+            }
+        });
+    })();
 </script>
 </body>
 </html>
